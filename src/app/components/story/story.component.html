@@ -1,0 +1,26 @@
+
+<div class="modal-header">
+    <h4 class="modal-title">Hi there!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><textarea [(ngModel)]="story.text"></textarea></p>
+    <div class="row">
+      <div class="col-md-6">Move to swimlane <select>
+        <option>1</option>
+        <option>2</option>
+        <option selected="selected">3</option>
+      </select></div>
+      <div class="col-md-6">Move position <select>
+        <option>1</option>
+        <option selected="selected">2</option>
+        <option>3</option>
+      </select></div>
+      </div>      
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>

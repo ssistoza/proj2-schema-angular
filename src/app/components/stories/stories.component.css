@@ -1,0 +1,24 @@
+/*stories*/
+.story {
+    border-radius: 5px;
+    background: white;
+    min-height: 50px;
+    margin-bottom: 5px;
+    padding: 8px;
+}
+.story:hover{
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.377);
+    cursor: pointer;
+}
+@media all and (max-width: 768px){
+
+    .story {
+        border-radius: 5px;
+        background: white;
+        min-height: 75px;
+        margin-bottom: 5px;
+        margin-left: 40px;
+        margin-right: 40px;
+        padding: 8px;
+    }
+}
