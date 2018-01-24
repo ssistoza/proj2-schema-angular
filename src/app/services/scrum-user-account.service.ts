@@ -14,7 +14,7 @@ const httpOptions = { // headers for the POST
 @Injectable()
 export class ScrumUserAccountService {
 
-  url = `http://localhost:8090/scrumhub/api/dev/user/retrieveUser/`;  // maybe user enviroment variables.. maybe
+  url = `http://localhost:8090/scrumhub/api/dev/user/`;  // maybe user enviroment variables.. maybe
   newBoardUrl = `http://localhost:8090/scrumhub/api/dev/board/create`;
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { } // User HTTP for retreiving JSON
@@ -28,11 +28,4 @@ export class ScrumUserAccountService {
           return <ScrumUser> response.json();
         });
   }
-
-    /** POST: add a new board to the DB */
-    addBoard (board: Board): Observable<Board> {
-      console.log('Hello');
-      return this.httpPost.post<Board>(this.newBoardUrl, JSON.stringify(board), httpOptions);
-    }
-
 }

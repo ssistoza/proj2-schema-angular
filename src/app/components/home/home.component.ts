@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ScrumUser } from '../../models/scrumUser.model';
 import { ScrumUserAccountService } from '../../services/scrum-user-account.service';
 import { Board } from '../../models/board.model';
+import { AddBoardService } from '../../services/add-board.service';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,14 @@ export class HomeComponent implements OnInit {
   public scrumUser: ScrumUser;
   public sboard: Board;
 
-  constructor(private accountService: ScrumUserAccountService) { }
+  constructor(private accountService: ScrumUserAccountService,
+              private addBoardService: AddBoardService) { }
 
   add(): void {
     console.log(this.scrumUser);
-    this.sboard = new Board(null, 'I asdfdsm Creatdfged again!!!', null);
+    this.sboard = new Board(null, 'I Work!', null);
 
-    this.accountService.addBoard(this.sboard)
+    this.addBoardService.addBoard(this.sboard)
       .subscribe(board => this.sboard = board);
   }
 

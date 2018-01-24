@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ScrumUserAccountService } from './services/scrum-user-account.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { AddBoardService } from './services/add-board.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [ScrumUserAccountService],
+  providers: [ScrumUserAccountService, AddBoardService],
   bootstrap: [AppComponent],
   entryComponents: [StoryComponent],
   exports: []
