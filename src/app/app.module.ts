@@ -14,7 +14,8 @@ import { ScrumUserAccountService } from './services/scrum-user-account.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
-import { Ng2OrderModule } from 'ng2-order-pipe';
+import { TaskComponent } from './components/task/task.component';
+//import { Ng2OrderModule } from 'ng2-order-pipe';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     HomeComponent,
     StoryComponent,
     StoriesComponent,
-    SwimlaneComponent
+    SwimlaneComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

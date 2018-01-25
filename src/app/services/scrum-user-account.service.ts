@@ -15,7 +15,7 @@ const httpOptions = { // headers for the POST
 @Injectable()
 export class ScrumUserAccountService {
 
-  url = `http://localhost:8090/scrumhub/api/dev/user/retrieveUser/`;  // maybe user enviroment variables.. maybe
+  url = `http://localhost:8090/scrumhub/api/dev/user/`;  // maybe user enviroment variables.. maybe
   newBoardUrl = `http://localhost:8090/scrumhub/api/dev/board/create`;
   newSwimlaneUrl = `http://localhost:8090/scrumhub/api/dev/createSwimlane`;
 
