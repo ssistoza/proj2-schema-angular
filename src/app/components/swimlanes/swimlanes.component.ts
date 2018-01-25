@@ -2,6 +2,12 @@ import {NgModule} from '@angular/core';
 import { Component, OnInit, } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { StoryComponent } from '../story/story.component';
+import { ScrumUserAccountService } from '../../services/scrum-user-account.service';
+import { ScrumUser } from '../../models/scrumUser.model';
+import { SwimlaneComponent } from '../swimlane/swimlane.component';
+import { ActivatedRoute } from '@angular/router';
+import { Swimlane } from '../../models/swimlane.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-swimlanes',
@@ -9,74 +15,32 @@ import { StoryComponent } from '../story/story.component';
   styleUrls: ['./swimlanes.component.css']
 })
 export class SwimlanesComponent implements OnInit {
-
-   swimlanes: Object = [
-    {
-      swimlaneId: 1,
-      name: 'To do...',
-      stories: [
-              {
-                storyId: 1,
-                text: 'Story 1',
-                points: 8,
-              },
-              {
-                storyId: 2,
-                text: 'Story 2',
-                points: 3,
-              },
-              {
-                storyId: 3,
-                text: 'Story 3',
-                points: 10,
-              }
-            ]
-    },
-    {
-      swimlaneId: 2,
-      name: 'In progress...',
-      stories: [
-                {
-                  storyId: 4,
-                  text: 'Story 4',
-                  points: 10,
-                }
-              ]
-    },
-    {
-      swimlaneId: 3,
-      name: 'Done...',
-      stories: [
-                {
-                  storyId: 5,
-                  text: 'Story 5',
-                  points: 10,
-                },
-                {
-                  storyId: 5,
-                  text: 'Story 6',
-                  points: 7,
-                },
-                {
-                  storyId: 5,
-                  text: 'Story 7',
-                  points: 6,
-                },
-                {
-                  storyId: 5,
-                  text: 'Story 8',
-                  points: 2,
-                },
-              ]
-    }
-  ];
+  public scrumUser: ScrumUser;
+  public swimlanes: Swimlane;
   points: String[] = [];
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,
+              private accountService: ScrumUserAccountService,
+              private route: ActivatedRoute,
+              public router: Router) { }
 
-  open(story) {   // opens story modal
+  newStory(event: Event) {   // opens story modal
+    event.stopPropagation();
     const modalRef = this.modalService.open(StoryComponent);
-    modalRef.componentInstance.story = story;
+    modalRef.componentInstance.story = null;
+  }
+
+  editSwimlane(swimlane) {
+    const modalRef = this.modalService.open(SwimlaneComponent);
+    modalRef.componentInstance.swimlane = swimlane;
+  }
+
+  newSwimlane() {
+    this.router.navigated = false;
+    const modalRef = this.modalService.open(SwimlaneComponent);
+    modalRef.componentInstance.properties = [this.getBoardId(), Object.keys(this.swimlanes).length];
+    modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1);
+                                                console.log('I was Closed'); }, 1000));
   }
 
   createRange() {   // made up function to create the bar sizes for the mobile view...
@@ -88,14 +52,40 @@ export class SwimlanesComponent implements OnInit {
       this.points.push(String(items));
     }
   }
+
   setStyles(amount) {
     const styles = {
         'height':  amount + 'px',
     };
     return styles;
-}
-  ngOnInit() {
+  }
+
+
+  getUserInfo(userId: number) {
+    this.accountService.getScrumUserAccount(userId).subscribe(
+      (service) => this.scrumUser = service,
+      error => console.log('Error: ', error), // log it on error...
+      () => this.getCurrentSwimlane(this.getBoardId())
+    );
+  }
+
+  getCurrentSwimlane (boardId: number) {
+    for (let i = 0; i < Object.keys(this.scrumUser.associatedBoards).length; i++) {
+      if (this.scrumUser.associatedBoards[i].sboard.bId === boardId) {
+        this.swimlanes = this.scrumUser.associatedBoards[i].sboard.swimlanes;
+      }
+    }
+    console.log(Object.keys(this.swimlanes).length);
+
     this.createRange();
   }
 
+  getBoardId(): number {
+    const id = +this.route.snapshot.paramMap.get('id');
+    return id;
+  }
+
+  ngOnInit() {
+    this.getUserInfo(1);
+  }
 }

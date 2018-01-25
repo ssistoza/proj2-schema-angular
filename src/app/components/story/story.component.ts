@@ -8,6 +8,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class StoryComponent {
   @Input() story;
+  @Input() swimlane;
 
   constructor(public activeModal: NgbActiveModal) { }
 

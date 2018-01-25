@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { ScrumUserAccountService } from './services/scrum-user-account.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { SwimlaneComponent } from './components/swimlane/swimlane.component';
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     SwimlanesComponent,
     HomeComponent,
     StoryComponent,
-    StoriesComponent
+    StoriesComponent,
+    SwimlaneComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [ScrumUserAccountService],
   bootstrap: [AppComponent],
-  entryComponents: [StoryComponent],
+  entryComponents: [StoryComponent, SwimlaneComponent], // used for bootstrap modal
   exports: []
 })
 export class AppModule { }

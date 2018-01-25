@@ -6,6 +6,7 @@ import { Http, Response } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ScrumUser } from '../models/scrumUser.model';
 import { Board } from '../models/board.model';
+import { Swimlane } from '../models/swimlane.model';
 
 const httpOptions = { // headers for the POST
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,6 +17,7 @@ export class ScrumUserAccountService {
 
   url = `http://localhost:8090/scrumhub/api/dev/user/retrieveUser/`;  // maybe user enviroment variables.. maybe
   newBoardUrl = `http://localhost:8090/scrumhub/api/dev/board/create`;
+  newSwimlaneUrl = `http://localhost:8090/scrumhub/api/dev/createSwimlane`;
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { } // User HTTP for retreiving JSON
 
@@ -33,6 +35,11 @@ export class ScrumUserAccountService {
     addBoard (board: Board): Observable<Board> {
       console.log('Hello');
       return this.httpPost.post<Board>(this.newBoardUrl, JSON.stringify(board), httpOptions);
+    }
+
+    /** POST: add a new board to the DB */
+    addSwimlane (swimlane: Swimlane): Observable<Swimlane> {
+      return this.httpPost.post<Swimlane>(this.newSwimlaneUrl, JSON.stringify(swimlane), httpOptions);
     }
 
 }

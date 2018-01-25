@@ -7,7 +7,7 @@ import { SwimlanesComponent } from './components/swimlanes/swimlanes.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
-  {path: 'swimlane', component: SwimlanesComponent}
+  {path: 'swimlane/:id', component: SwimlanesComponent},
 ];
 
 @NgModule({

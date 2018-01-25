@@ -34,18 +34,18 @@
 <section id="scrum-container">
 <div class="row swimlanes">
 <!-- Iterate through swimlanes -->
-<div class="float-md-left lane" *ngFor="let swimlane of swimlanes">
-  <div class="swimlane">
-    <h6>{{swimlane.name}}</h6>
+<div class="float-md-left lane" *ngFor="let swimlane of swimlanes;">
+  <div class="swimlane" (click)="editSwimlane(swimlane)">
+    <h6>{{swimlane.slName}}</h6>
       <div class="story-container">
         <!-- Send stories from current iteration of swimlane -->
         <app-stories [lane]="swimlane.stories"></app-stories>        
       </div>
-    <div class="add-story"><input class="btn btn-primary" type="button" value="Add a Story"></div>
+    <div class="add-story"><input (click)="newStory($event)" class="btn btn-primary" type="button"  value="Add a Story"></div>
   </div>
 </div>
 <div class="float-md-left lane">
-    <div class="create swimlane">
+    <div class="create swimlane" (click)="newSwimlane()" >
       <h6>Create new swimlane...</h6>
     </div>
   </div>
