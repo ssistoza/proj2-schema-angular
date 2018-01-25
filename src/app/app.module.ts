@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { ScrumUserAccountService } from './services/scrum-user-account.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import { LoginService } from './services/login/login.service';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     SwimlanesComponent,
     HomeComponent,
     StoryComponent,
+    LoginComponent,
     StoriesComponent
   ],
   imports: [
@@ -32,7 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [ScrumUserAccountService],
+  providers: [ScrumUserAccountService, LoginService],
   bootstrap: [AppComponent],
   entryComponents: [StoryComponent],
   exports: []
