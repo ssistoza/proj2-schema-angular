@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { ScrumUserAccountService } from './services/scrum-user-account.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { AddBoardService } from './services/add-board.service';
+import { BoardService } from './services/board.service';
+import { BoardComponent } from './components/board/board.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AddBoardService } from './services/add-board.service';
     SwimlanesComponent,
     HomeComponent,
     StoryComponent,
-    StoriesComponent
+    StoriesComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +35,9 @@ import { AddBoardService } from './services/add-board.service';
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [ScrumUserAccountService, AddBoardService],
+  providers: [ScrumUserAccountService, BoardService],
   bootstrap: [AppComponent],
-  entryComponents: [StoryComponent],
+  entryComponents: [StoryComponent, BoardComponent],
   exports: []
 })
 export class AppModule { }

@@ -9,10 +9,11 @@ const httpOptions = { // headers for the POST
 };
 
 @Injectable()
-export class AddBoardService {
+export class BoardService {
 
 newBoardUrl = 'http://localhost:8090/scrumhub/api/dev/board/create';
 updateBoardUrl = 'http://localhost:8090/scrumhub/api/dev/board/update';
+getBoardUrl = 'http://localhost:8090/scrumhub/api/dev/board/';
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { }
 
@@ -23,4 +24,9 @@ updateBoardUrl = 'http://localhost:8090/scrumhub/api/dev/board/update';
   addBoard (board: Board): Observable<Board> {
     return this.httpPost.post<Board>(this.newBoardUrl, JSON.stringify(board), httpOptions);
   }
+
+  // getBoard (board: Board): Observable<Board> {
+  //   return this.httpGet.get<Board>(this.getBoardUrl + board.bId, JSON.stringify(board), httpOptions);
+  // }
+
 }
