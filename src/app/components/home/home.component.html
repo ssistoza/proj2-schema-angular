@@ -5,9 +5,8 @@
     
     <div *ngFor="let board of scrumUser.associatedBoards" class="col-lg-4 col-md-6 col-sm-12">
         <div class="board-card"><h4>#{{board.sboard.bId}} {{board.sboard.bName}} {{board.memberRole.roleType}}</h4>        
-          <!-- <div class="board btn btn-primary" (click)="open(board)"{{board.bName}}>Edit Board</div> -->
-          <!-- <button class="btn btn-primary" (click)="update();">Edit Board</button>  -->
-          <div class="board btn btn-primary" (click)="update(board)">Edit Board</div>
+          
+          <div class="board btn btn-primary" (click)="update(board.sboard)">Edit Board</div>
         </div>
       </div>
 
@@ -15,4 +14,3 @@
   </div>
 </div>
 
-<!-- <div class="story" (click)="open(story)"><strong>{{story.points}}</strong> {{story.text}}</div> -->

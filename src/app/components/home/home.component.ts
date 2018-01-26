@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
               private modalService: NgbModal
               // public activeModal: NgbActiveModal) { } // added for editboard pop-up window
   ) {}
-  add(): void {
+   add(): void {
+    const modalRef = this.modalService.open(BoardComponent);
+
     console.log(this.scrumUser);
     this.sboard = new Board(null, 'I Work!', null);
 
@@ -31,18 +33,15 @@ export class HomeComponent implements OnInit {
   }
 
   update(board) {
+    console.log(board);
 const modalRef = this.modalService.open(BoardComponent);
 modalRef.componentInstance.board = board;
 
-   // console.log(this.scrumUser);
-    // this.boardService.updateBoard(this.sboard)
-    // .subscribe(board => this.sboard = board);
-  }
+   console.log(this.scrumUser);
 
-  // open(story) {
-  //   const modalRef = this.modalService.open(StoryComponent);
-  //   modalRef.componentInstance.story = story;
-  // }
+    this.boardService.updateBoard(this.sboard)
+    .subscribe(board => this.sboard = board);
+  }
 
   getUserInfo() {
     this.accountService.getScrumUserAccount(1).subscribe(

@@ -1,16 +1,40 @@
 
+
+
+<div *ngIf="board != null; then update else add"></div>
+<ng-template #update>
 <div class="modal-header">
-    <h4 class="modal-title">Board</h4>
+    <h4 class="modal-title">Edit Board</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 
   <div class="modal-body">
-      <p><textarea [(ngModel)]="board.text">{{board.text}} </textarea></p>
+      <p><textarea [(ngModel)]="board.bName">{{board.bName}} </textarea></p>
   </div>
 
   <div class="modal-footer">
       <button type="button" class="btn btn-primary">Save</button>
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
+</ng-template>
+
+
+<ng-template #add>
+  <div class="modal-header">
+    <h4 class="modal-title">Create Board</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+      <p><textarea> </textarea></p>
+  </div>
+
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</ng-template>
