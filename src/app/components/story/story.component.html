@@ -10,16 +10,29 @@
   <div class="modal-body">
     <p><textarea>{{story.storyName}}</textarea></p>
     <div class="row">
-      <div *ngFor="let task of story.tasks">
-        <p>{{task.taskDescription}}</p>
-      </div>
+
       <div class="col-md-6">Move to swimlane <select>
 
       </select></div>
       <div class="col-md-6">Move position <select>
 
-      </select></div>
-      </div>      
+      </select>
+    </div>
+
+        <div class="col-md-12">
+    
+            <h2>Task List</h2>
+            
+            <div *ngFor="let todo of todos; let i = index">
+              <label>
+                <input type="checkbox" [(ngModel)]="todo.deleted" name="check"> <div [ngClass]="{strike: todo.deleted}" class="label-text">{{todo.text}}</div>
+              </label>
+              <button type="button" class="close" (click)="deleteTodo(i)">x</button>
+            </div>
+            
+        </div>
+      </div> 
+          
   </div>
 </ng-template>
 <ng-template #createStory>
