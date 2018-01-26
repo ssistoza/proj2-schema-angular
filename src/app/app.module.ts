@@ -15,11 +15,11 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login/login.service';
-import { RegisterComponent } from './register/register.component';
 import { AlertService } from './services/alert.service';
 import { RegisterService } from './services/register/register.service';
 import { AuthGuard } from './services/auth.guard';
 import { AlertComponent } from './components/alert/alert.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
