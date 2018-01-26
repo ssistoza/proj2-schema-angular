@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { ScrumUser } from '../../models/scrumUser.model';
+import { Router } from '@angular/router';
+import { AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +10,16 @@ import { ScrumUser } from '../../models/scrumUser.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    router: any;
     model: any = {};
     loading = false;
-    returnUrl: string;
 
   public scrumUser: ScrumUser;
 
-  constructor(private newLoginService: LoginService) { }
+  constructor(private newLoginService: LoginService, private router: Router, private alertService: AlertService) { }
 
   ngOnInit() {
       // reset login status
-     // this.newLoginService.logout();
+     this.newLoginService.logout();
 
       // get return url from route parameters or default to '/'
       // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -34,22 +34,13 @@ export class LoginComponent implements OnInit {
     this.newLoginService.loginPost(tempUser).subscribe(
         one => {this.scrumUser = one;
         console.log(this.scrumUser);
-        this.router.navigate(['/home']); }
-    );
+        sessionStorage.setItem('userProfile', JSON.stringify(this.scrumUser));
+        this.router.navigate(['home']);
+    },
+    error => {
+        this.alertService.error(error);
+        this.loading = false;
+    });
+    }
 
-}
-/*   login(username: string, password: string): void {
-    console.log(username + password);
-  } */
-
-
-
-
-// //data => {
-//     this.router.navigate(['home']);
-// },
-// error => {
-//     // this.alertService.error(error);
-//     // this.loading = false;
-// });
 }
