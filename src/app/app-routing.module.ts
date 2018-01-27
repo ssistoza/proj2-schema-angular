@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './components/home/home.component';
 import { SwimlanesComponent } from './components/swimlanes/swimlanes.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
