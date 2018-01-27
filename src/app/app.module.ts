@@ -23,6 +23,10 @@ import { AuthGuard } from './services/auth.guard';
 import { AlertComponent } from './components/alert/alert.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarService } from './services/navbar/navbar.service';
+import { SessionService } from './services/session.service';
+import { RolesService } from './services/roles.service';
+import { BoardMember } from './models/boardMember.model';
+import { BoardMemberService } from './services/board-member.service';
 
 
 @NgModule({
@@ -54,7 +58,10 @@ import { NavbarService } from './services/navbar/navbar.service';
     RegisterService,
     NavbarService,
     AuthGuard,
-    BoardService
+    BoardService,
+    SessionService,
+    RolesService,
+    BoardMemberService
   ],
   bootstrap: [AppComponent],
   entryComponents: [StoryComponent, BoardComponent],

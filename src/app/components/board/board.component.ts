@@ -2,8 +2,13 @@ import { Component, Input } from '@angular/core';
 import { BoardService } from '../../services/board.service';
 import { Board } from '../../models/board.model';
 import { ScrumUser } from '../../models/scrumUser.model';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { SessionService } from '../../services/session.service';
+import { RolesService } from '../../services/roles.service';
+import { Role } from '../../models/role.model';
+import { BoardMember } from '../../models/boardMember.model';
+import { BoardMemberService } from '../../services/board-member.service';
+
 
 @Component({
   selector: 'app-board',
@@ -11,31 +16,56 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent {
-
+  
   public scrumUser: ScrumUser;
-  public sboard: Board;
-
-@Input()board;
-
+  public sboard: Board = new Board(null, null, null, null);
+  
+  
+  @Input()board;
+  
+  
   constructor(private boardService: BoardService,
-              public activeModal: NgbActiveModal,
-              private modalService: NgbModal) { }
+    public activeModal: NgbActiveModal,
+    private modalService: NgbModal,
+    private sessionService: SessionService,
+    private rolesService: RolesService,
+    private boardMemberService: BoardMemberService) { }
+    
+    
+    addNewBoard() {
+      
+      this.boardService.addBoard(this.sboard)
+      .subscribe(
+        board => this.sboard = board,
+        (error)=> console.log("Error creating board"),      
+        () => this.getAdminRole(this.sboard)        
+      );
+    }
+    getAdminRole(b:Board)  {
+      let role = new Role(null, null);
+        
+      this.rolesService.getAdmin()
+      .subscribe( 
+        adminRole => role = adminRole,
+        (error) => console.log("Error creating board owner"),
+       () => console.log()
+          );      
+    }
 
-   add(): void {
-    const modalRef = this.modalService.open(BoardComponent);
-
-    console.log(this.scrumUser);
-    this.sboard = new Board(null, 'I Work!', null, null);
-
-    this.boardService.addBoard(this.sboard)
-    .subscribe(board => this.sboard = board);
+    createOwnerOfBoard(b:Board, r:Role){
+      let userId = this.sessionService.getScrumUserId();
+      let boardMember = new BoardMember(b, userId, r);
+      this.boardMemberService.createBoardMember(boardMember)
+      .subscribe( owner => console.log(owner)
+      );
+    }      
+    
+    save(board) {
+      console.log(board);
+      
+      this.boardService.updateBoard(this.sboard)
+      .subscribe(sboard => this.sboard = sboard);
+    }
+    
   }
-
-  save(board) {
-    console.log(board);
-
-    this.boardService.updateBoard(this.sboard)
-  .subscribe(sboard => this.sboard = sboard);
-  }
-
-}
+  
