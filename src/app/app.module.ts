@@ -27,6 +27,8 @@ import { SessionService } from './services/session.service';
 import { RolesService } from './services/roles.service';
 import { BoardMember } from './models/boardMember.model';
 import { BoardMemberService } from './services/board-member.service';
+import { SwimlaneComponent } from './components/swimlane/swimlane.component';
+
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { BoardMemberService } from './services/board-member.service';
     AppComponent,
     NavbarComponent,
     SwimlanesComponent,
+    SwimlaneComponent,
     HomeComponent,
     StoryComponent,
     StoriesComponent,
