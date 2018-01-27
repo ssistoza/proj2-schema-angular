@@ -35,7 +35,7 @@ export class ScrumUserAccountService {
     /** POST: add a new board to the DB */
     addBoard (board: Board): Observable<Board> {
       console.log('Hello');
-      return this.httpPost.post<Board>(environment.user.create(), JSON.stringify(board), httpOptions);
+      return this.httpPost.post<Board>(environment.board.create(), JSON.stringify(board), httpOptions);
     }
 
     /** POST: add a new swimlane to the DB */
