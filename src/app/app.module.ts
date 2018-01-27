@@ -43,10 +43,10 @@ import { RegisterComponent } from './components/register/register.component';
     NgbModule.forRoot()
   ],
   providers: [
-    ScrumUserAccountService, 
-    LoginService, 
-    AlertService, 
-    RegisterService, 
+    ScrumUserAccountService,
+    LoginService,
+    AlertService,
+    RegisterService,
     AuthGuard
   ],
   bootstrap: [AppComponent],
