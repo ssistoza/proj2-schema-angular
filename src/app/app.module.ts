@@ -23,6 +23,7 @@ import { AuthGuard } from './services/auth.guard';
 import { AlertComponent } from './components/alert/alert.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarService } from './services/navbar/navbar.service';
+import { SwimlaneComponent } from './components/swimlane/swimlane.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { NavbarService } from './services/navbar/navbar.service';
     AppComponent,
     NavbarComponent,
     SwimlanesComponent,
+    SwimlaneComponent,
     HomeComponent,
     StoryComponent,
     StoriesComponent,
