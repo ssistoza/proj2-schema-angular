@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
 })
 export class SwimlanesComponent implements OnInit {
   public scrumUser: ScrumUser;
-  public swimlanes: Swimlane;
+  public swimlanes: Swimlane[];
   public swimlaneIds: number[] = [];
   public swimlaneStoriesLength: number [] = [];
   public points: String[] = [];

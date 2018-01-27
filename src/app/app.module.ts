@@ -33,7 +33,7 @@ import { NavbarService } from './services/navbar/navbar.service';
     HomeComponent,
     StoryComponent,
     StoriesComponent,
-    BoardComponent
+    BoardComponent,
     LoginComponent,
     StoriesComponent,
     RegisterComponent,

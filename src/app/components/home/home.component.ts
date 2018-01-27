@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private accountService: ScrumUserAccountService,
               private boardService: BoardService,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              private navService: NavbarService
   ) {}
-  constructor(private accountService: ScrumUserAccountService, private navService: NavbarService  ) { }
 
   open(board) {
     console.log(board);

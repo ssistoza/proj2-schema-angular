@@ -39,12 +39,22 @@ export const environment = {
 
   story: {
     get: (storyid: number) => `${context}/story/${storyid}`,
-    create: () => `${context}/story/create`
+    create: () => `${context}/story/create`,
+    update: () => `${context}/story/update`,
+    reorder: () => `${context}/story/reorder`,
+    move: () => `${context}/story/move`
   },
 
   task: {
     get: (taskid: number) => `${context}/task/${taskid}`,
     create: () => `${context}/task/create`,
     update: () => `${context}/task/update`
+  },
+
+  swimlane: {
+    get: (swimlaneid: number) => `${context}/swimlane/${swimlaneid}`,
+    create: () => `${context}/swimlane/create`,
+    update: () => `${context}/swimlane/update`,
+    reorder: () => `${context}/swimlane/reorder`
   }
 };

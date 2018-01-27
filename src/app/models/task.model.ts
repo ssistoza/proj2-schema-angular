@@ -19,3 +19,4 @@ export class Task {
         this.isTaskActive = isTaskActive;
 
 }
+}

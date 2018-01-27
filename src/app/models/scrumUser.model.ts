@@ -11,7 +11,7 @@ export class ScrumUser {
 
     constructor(u_id: number, username: string, password: string,
         email: string, firstname: string, lastname: string, boards: BoardMember[]) {
-        this.u_id = u_id;
+        this.uId = u_id;
         this.username = username;
         this.password = password;
         this.email = email;

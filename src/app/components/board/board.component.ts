@@ -25,7 +25,7 @@ export class BoardComponent {
     const modalRef = this.modalService.open(BoardComponent);
 
     console.log(this.scrumUser);
-    this.sboard = new Board(null, 'I Work!', null);
+    this.sboard = new Board(null, 'I Work!', null, null);
 
     this.boardService.addBoard(this.sboard)
     .subscribe(board => this.sboard = board);
