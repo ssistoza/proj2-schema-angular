@@ -1,31 +1,22 @@
-.container{
-	background-color: rgba(222, 221, 221, 0.3);
-	display:table;
-	justify-content: center;
-	align-content: center;
-	margin: 10% 0px 20% 0px;
-	padding: 15px 57px 15px;
-	border: 1px solid;
-	border-color: #000000;
-	border-radius: 15px;
-	font-weight: bold;
-}
-
 .btn-primary {
-    color: #fff;
-    background-color: #0495c9;
-    border-color: #357ebd; 
+	color: #fff;
+	background-color: #0495c9;
+	border-color: #357ebd; 
 }
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
-    color: #fff;
-    background-color: #00b3db;
-    border-color: #285e8e;
-}
+/*.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+	color: #fff;
+	background-color: #00b3db;
+	border-color: #285e8e;
+}*/
 
 .ng-valid[required], .ng-valid.required  {
 	border-left: 5px solid #42A948; /* green */
-  }
-  
-  .ng-invalid:not(form)  {
+}
+
+.ng-invalid:not(form)  {
 	border-left: 5px solid #a94442; /* red */
-  }
+}
+
+.login-centered {
+	margin: auto;
+}
