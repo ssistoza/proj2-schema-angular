@@ -15,7 +15,7 @@ export class StoryComponent implements OnInit{
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
-    console.log(this.story.tasks);
+    console.log(this.story);
     for (let i = 0; i < this.story.tasks.length; i++) {
       this.todos[i] = { text: `${this.story.tasks[i].taskDescription}`, deleted: (!this.story.tasks[i].taskActive)};
     }
