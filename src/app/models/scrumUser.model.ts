@@ -1,7 +1,7 @@
 import { BoardMember } from './boardMember.model';
 
 export class ScrumUser {
-    u_id: number;
+    uId: number;
     username: string;
     password: string;
     email: string;
@@ -9,9 +9,9 @@ export class ScrumUser {
     lastname: string;
     associatedBoards: BoardMember;
 
-    constructor(u_id: number, username: string, password: string,
+    constructor(uId: number, username: string, password: string,
         email: string, firstname: string, lastname: string, boards: BoardMember) {
-        this.u_id = u_id;
+        this.uId = uId;
         this.username = username;
         this.password = password;
         this.email = email;
