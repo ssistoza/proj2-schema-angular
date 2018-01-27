@@ -1,6 +1,4 @@
 .container{
-	
-
 	background-color: rgba(222, 221, 221, 0.3);
 	display:table;
 	justify-content: center;
@@ -11,7 +9,6 @@
 	border-color: #000000;
 	border-radius: 15px;
 	font-weight: bold;
-	
 }
 
 .btn-primary {

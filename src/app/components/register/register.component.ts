@@ -10,8 +10,9 @@ import { AlertService } from '../../services/alert.service';
 })
 
 export class RegisterComponent implements OnInit {
-  loading = false;
-  model: any = {};
+  public loading: boolean = false;
+  public model: any = {};
+  
   constructor(
     private newRegisterService: RegisterService,
     private router: Router,
