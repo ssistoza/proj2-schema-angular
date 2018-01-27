@@ -15,6 +15,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
 import { TaskComponent } from './components/task/task.component';
+import { TaskService } from './services/task.service';
 //import { Ng2OrderModule } from 'ng2-order-pipe';
 
 
@@ -37,7 +38,7 @@ import { TaskComponent } from './components/task/task.component';
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [ScrumUserAccountService],
+  providers: [ScrumUserAccountService,TaskService],
   bootstrap: [AppComponent],
   entryComponents: [StoryComponent, SwimlaneComponent], // used for bootstrap modal
   exports: []

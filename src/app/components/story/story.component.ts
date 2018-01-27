@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { Task } from '../../models/task.model'
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-story',
@@ -11,9 +12,11 @@ export class StoryComponent implements OnInit{
   @Input() story;
   @Input() swimlane;
 
-  todos: any[] = [];
   tasks: Task[] = [];
-  constructor(public activeModal: NgbActiveModal) { }
+  value: number = 0;
+  max: number = 0;
+
+  constructor(public activeModal: NgbActiveModal,private taskService: TaskService) { }
 
   ngOnInit() {
     console.log(this.story);
@@ -22,30 +25,58 @@ export class StoryComponent implements OnInit{
       this.story.tasks.map( (obj: any) => {
         //console.log(obj);
         //(<Task> obj) = new Task(obj.taskId, obj.taskDescription, obj.taskTimestamp, obj.storyId, obj.taskActive);
-        this.tasks.push(new Task(obj.taskId, obj.taskDescription, obj.taskTimestamp, obj.storyId, obj.taskActive));
-      });
-      console.log(JSON.stringify(this.tasks));
-    
-      if(this.story.tasks != undefined)
-      {
-        for (let i = 0; i < this.story.tasks.length; i++) {
-          this.todos[i] = { text: `${this.story.tasks[i].taskDescription}`, deleted: (!this.story.tasks[i].taskActive)};
+        if(obj.taskActive == true)
+        {
+          this.value += 1;
         }
-      }
+        this.max += 1;
+
+        this.tasks.push(new Task(obj.taskId, obj.taskDescription, obj.taskTimestamp, obj.storyId, obj.taskActive));
+        //this.getTask(obj.taskId);
+      });
+      //console.log(JSON.stringify(this.tasks));
+      
+    
     }
   }
 
-  deleteTodo(index: number) {
-    this.todos.splice(index, 1);
+
+  getTask(id: number){
+    this.taskService.getTask(id).subscribe(
+      service => {
+        //this.tasks.push(service);
+        console.log((<Task>service));
+      }
+
+    );
   }
 
-  toggleTaskActive(index: number)
+  updateTask(task: Task)
   {
-    //this.tasks[index].taskActive = !this.tasks[index].taskActive;
-    console.log(this.tasks[index]);
+    if((!task.taskActive) == true)
+    {
+      this.value += 1;
+    }
+    else{
+      this.value -= 1;
+    }
+
+    //let json = JSON.stringify(new Task(task.taskId,task.taskDescription,task.taskTimestamp,task.storyId,(!task.taskActive)));
+
+    console.log(this.taskService.updateTask(task));
+    //console.log(JSON.stringify(new Task(task.taskId,task.taskDescription,task.taskTimestamp,task.storyId,(!task.taskActive))));
   }
+
   deleteTask(index: number) {
+    if((this.tasks[index].taskActive) == true)
+    {
+      this.value -= 1;
+    }
+
+    this.max -= 1;
+
     this.tasks.splice(index, 1);
+    
     console.log(JSON.stringify(this.tasks));
   }
 

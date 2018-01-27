@@ -18,26 +18,33 @@ const httpOptions = { // headers for the POST
 @Injectable()
 export class TaskService{
 
-   url = `http://localhost:8090/scrumhub/api/dev/task/`;  // maybe user enviroment variables.. maybe
-  // newBoardUrl = `http://localhost:8090/scrumhub/api/dev/board/create`;
+   getTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/`;  // maybe user enviroment variables.. maybe
+   createTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/create`;
+   updateTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/update`;
   // newSwimlaneUrl = `http://localhost:8090/scrumhub/api/dev/createSwimlane`;
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { } // User HTTP for retreiving JSON
 
   getTask(id: number): Observable<Task> {
     return this.httpGet
-        .get(this.url + id)
+        .get(this.getTaskUrl + id)
         .map( (response: Response) => {
-          console.log(response.json());
+          //console.log(response.json());
           return <Task> response.json();
         });
   }
 
-    /** POST: add a new board to the DB */
-    // addBoard (board: Board): Observable<Board> {
-    //   console.log('Hello');
-    //   return this.httpPost.post<Board>(this.newBoardUrl, JSON.stringify(board), httpOptions);
-    // }
+    
+    addTask (task: Task): Observable<Task> {
+      console.log(task);
+      return this.httpPost.post<Task>(this.createTaskUrl, JSON.stringify(task), httpOptions);
+    }
+
+    updateTask (task: Task): Observable<Task> {
+      console.log("we made it to updateTask -service");
+      
+      return this.httpPost.post<Task>(this.updateTaskUrl, JSON.stringify(task), httpOptions);
+    }
 
     /** POST: add a new board to the DB */
     // addSwimlane (swimlane: Swimlane): Observable<Swimlane> {
