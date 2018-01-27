@@ -7,21 +7,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ScrumUser } from '../models/scrumUser.model';
 import { Board } from '../models/board.model';
 
+import { environment } from '../../environments/environment';
+
 const httpOptions = { // headers for the POST
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable()
 export class ScrumUserAccountService {
-
-  url = `http://localhost:8090/scrumhub/api/dev/user/`;  // maybe user enviroment variables.. maybe
-  newBoardUrl = `http://localhost:8090/scrumhub/api/dev/board/create`;
+  url = environment.user.get;
+  newBoardUrl = environment.user.create();
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { } // User HTTP for retreiving JSON
 
   getScrumUserAccount(id: number): Observable<ScrumUser> {
     return this.httpGet
-        .get(this.url + id)
+        .get( this.url(id) )
         // must import Response datatype
         .map( (response: Response) => {
           console.log(response);

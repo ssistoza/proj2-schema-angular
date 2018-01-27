@@ -1,7 +1,7 @@
 import { BoardMember } from './boardMember.model';
 
 export class ScrumUser {
-    u_id: number;
+    uId: number;
     username: string;
     password: string;
     email: string;

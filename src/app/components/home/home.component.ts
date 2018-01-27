@@ -6,6 +6,7 @@ import { BoardService } from '../../services/board.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {BoardComponent} from '../board/board.component';
+import { NavbarService } from '../../services/navbar/navbar.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
               private boardService: BoardService,
               private modalService: NgbModal
   ) {}
+  constructor(private accountService: ScrumUserAccountService, private navService: NavbarService  ) { }
 
   open(board) {
     console.log(board);
@@ -40,6 +42,7 @@ modalRef.componentInstance.board = board;
   }
   ngOnInit() {
     this.getUserInfo();
+    this.navService.loggedIn();
   }
 
 }
