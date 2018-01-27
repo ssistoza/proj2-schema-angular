@@ -22,7 +22,9 @@
         "styles.css",
         "assets/css/material.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/material.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
