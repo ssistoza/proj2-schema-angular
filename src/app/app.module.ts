@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { ScrumUserAccountService } from './services/scrum-user-account.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { BoardService } from './services/board.service';
+import { BoardComponent } from './components/board/board.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login/login.service';
 import { AlertService } from './services/alert.service';
@@ -30,6 +32,8 @@ import { NavbarService } from './services/navbar/navbar.service';
     SwimlanesComponent,
     HomeComponent,
     StoryComponent,
+    StoriesComponent,
+    BoardComponent
     LoginComponent,
     StoriesComponent,
     RegisterComponent,
@@ -49,10 +53,11 @@ import { NavbarService } from './services/navbar/navbar.service';
     AlertService,
     RegisterService,
     NavbarService,
-    AuthGuard
+    AuthGuard,
+    BoardService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StoryComponent],
+  entryComponents: [StoryComponent, BoardComponent],
   exports: []
 })
 export class AppModule { }

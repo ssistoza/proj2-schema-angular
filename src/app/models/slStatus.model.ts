@@ -8,3 +8,4 @@ constructor (slStatusId: number, statusType: string) {
     this.statusType = statusType;
     }
 }
+

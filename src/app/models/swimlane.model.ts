@@ -21,5 +21,4 @@ export class Swimlane {
         this.slOrder = slOrder;
         this.slStatus = slStatus;
         this.boardKey = boardKey;
-    }
 }

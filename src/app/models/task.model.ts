@@ -18,5 +18,4 @@ export class Task {
         this.story = story;
         this.isTaskActive = isTaskActive;
 
-    }
 }

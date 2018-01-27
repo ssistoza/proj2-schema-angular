@@ -15,16 +15,8 @@ const httpOptions = { // headers for the POST
 
 @Injectable()
 export class ScrumUserAccountService {
-
-  url = `http://localhost:8090/scrumhub/api/dev/user/retrieveUser/`;  // maybe user enviroment variables.. maybe
-  newBoardUrl = `http://localhost:8090/scrumhub/api/dev/board/create`;
-  newSwimlaneUrl = `http://localhost:8090/scrumhub/api/dev/createSwimlane`;
-  updateSwimlaneUrl = `http://localhost:8090/scrumhub/api/dev/updateSwimlane`;
-  reoderSwimlaneUrl = `http://localhost:8090/scrumhub/api/dev/reorderSwimlane`;
-  addStoryUrl = `http://localhost:8090/scrumhub/api/dev/createStory`;
-  updateStoryUrl = `http://localhost:8090/scrumhub/api/dev/updateStory`;
-  reorderStoryUrl = `http://localhost:8090/scrumhub/api/dev/reorderStory`;
-  moveStoryUrl = `http://localhost:8090/scrumhub/api/dev/moveStory`;
+  url = environment.user.get;
+  newBoardUrl = environment.user.create();
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { } // User HTTP for retreiving JSON
 
