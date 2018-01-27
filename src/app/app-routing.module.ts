@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: 'swimlane', component: SwimlanesComponent, canActivate: [AuthGuard] },
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'swimlane/:id', component: SwimlanesComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 

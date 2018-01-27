@@ -19,6 +19,15 @@ body{
 .btn-primary:focus{
     box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5);
 }
+
+.btn-outline-dark{
+    color:rgb(145, 145, 145)!important;
+    border-color: rgb(145, 145, 145)!important;
+}
+
+.material-icons{
+    font-size: 12px!important;
+}
 /*board name*/
 #board-name{
     min-height: 8vh;
