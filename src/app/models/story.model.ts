@@ -1,22 +1,29 @@
-import { Swimlane } from './swimlane.model';
+
+import { Task } from './task.model';
 
 export class Story {
-story_id: number;
-story_name: string;
-points: number;
-checklist_name: string;
-done_story_timestamp: number;
-story_order: number;
-swimlane: Swimlane;
 
-    constructor(story_id: number, story_name: string, points: number, checklist_name: string, done_story_timestamp: number,
-    story_order: number, swimlane: Swimlane) {
-        this.story_id = story_id;
-        this.story_name = story_name;
+    storyId: number;
+    storyName: string;
+    points: number;
+    checklistName: string;
+    doneStoryTimestamp: number;
+    storyOrder: number;
+    swimlane: number;
+    tasks: Task;
+
+    constructor(storyId: number, points: number, storyName: string, checklistName: string, doneStoryTimestamp: number,
+        storyOrder: number, swimlane: number, tasks: Task) {
+
+        this.storyId = storyId;
+        this.storyName = storyName;
         this.points = points;
-        this.checklist_name = checklist_name;
-        this.done_story_timestamp = done_story_timestamp;
-        this.story_order = story_order;
+        this.checklistName = checklistName;
+        this.doneStoryTimestamp = doneStoryTimestamp;
+        this.storyOrder = storyOrder;
         this.swimlane = swimlane;
+        this.tasks = tasks;
+
     }
+
 }

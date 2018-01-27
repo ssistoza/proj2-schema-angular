@@ -1,18 +1,24 @@
+import { Story } from './story.model';
 import { SlStatus } from './slStatus.model';
 
 export class Swimlane {
+    slId: number;
+    slName: string;
+    slOrder: number;
+    slStatus: SlStatus;
+    boardKey: number;
+    stories: Story[];
 
-    sl_id: number;
-    sl_name: string;
-    sl_order: number;
-    sl_status_id: SlStatus;
-    b_id: number;
+    constructor(slId: number,
+        slName: string,
+        slOrder: number,
+        slStatus: SlStatus,
+        boardKey: number,
+        stories: Story) {
 
-    constructor( sl_id: number, sl_name: string, sl_order: number, sl_status_id: SlStatus, b_id: number) {
-        this.sl_id = sl_id;
-        this.sl_name = sl_name;
-        this.sl_order = sl_order;
-        this.sl_status_id = sl_status_id;
-        this.b_id = b_id;
-    }
+        this.slId = slId;
+        this.slName = slName;
+        this.slOrder = slOrder;
+        this.slStatus = slStatus;
+        this.boardKey = boardKey;
 }

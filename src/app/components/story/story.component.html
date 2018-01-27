@@ -1,26 +1,64 @@
 
-<div class="modal-header">
-    <h4 class="modal-title">Hi there!</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+<div *ngIf="story != null; then viewStory else createStory"></div>
+<ng-template #viewStory>
+    <div class="modal-header">
+        <h4 class="modal-title">Update story</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
   <div class="modal-body">
-    <p><textarea [(ngModel)]="story.text"></textarea></p>
+      <div class="row">          
+        <div class="col-12 text-right">
+            Previous <i (click)="moveLeft(laneIndex)" *ngIf="laneIndex !== 0" class="btn btn-outline-dark material-icons">&#xE5C4;</i> 
+          <i (click)="moveRight(laneIndex)" *ngIf="laneIndex < storiesLength" class="btn btn-outline-dark material-icons">&#xE5C8;</i> Next
+        </div>
+      </div>
+    <p><textarea [(ngModel)]="story.storyName">{{story.storyName}}</textarea></p>
     <div class="row">
-      <div class="col-md-6">Move to swimlane <select>
-        <option>1</option>
-        <option>2</option>
-        <option selected="selected">3</option>
-      </select></div>
-      <div class="col-md-6">Move position <select>
-        <option>1</option>
-        <option selected="selected">2</option>
-        <option>3</option>
-      </select></div>
-      </div>      
+        <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
+        <div class="col-8">
+            <input class="form-control" [(ngModel)]="story.points" type="number" value="{{story.points}}">
+          </div>
+      </div>
+    <div class="row">
+      <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
+      <div class="col-8">
+          <input class="form-control" type="text" [(ngModel)]="story.checklistName" value="{{story.checklistName}}">
+        </div>
+    </div>      
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary">Save</button>
+      <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
+      <button type="button" class="btn btn-primary" (click)="update()">Save</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-  </div>
+  </div> 
+</ng-template>
+<ng-template #createStory>
+    <div class="modal-header">
+        <h4 class="modal-title">Create a story</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  <div class="modal-body">
+      <p><textarea [(ngModel)]="storyName" placeholder="Story name...">{{storyName}}</textarea></p>
+      <div class="row">
+          <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
+          <div class="col-8">
+              <input class="form-control" [(ngModel)]="points" type="number" value="{{points}}">
+            </div>
+        </div>
+      <div class="row">
+        <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
+        <div class="col-8">
+            <input class="form-control" type="text" [(ngModel)]="checklistName" value="{{checklistName}}">
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
+        <button type="button" class="btn btn-primary" (click)="add()">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    </div>  
+  </ng-template>
