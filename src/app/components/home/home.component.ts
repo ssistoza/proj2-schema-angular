@@ -20,27 +20,16 @@ export class HomeComponent implements OnInit {
   constructor(private accountService: ScrumUserAccountService,
               private boardService: BoardService,
               private modalService: NgbModal
-              // public activeModal: NgbActiveModal) { } // added for editboard pop-up window
   ) {}
-   add(): void {
-    const modalRef = this.modalService.open(BoardComponent);
 
-    console.log(this.scrumUser);
-    this.sboard = new Board(null, 'I Work!', null);
-
-    this.boardService.addBoard(this.sboard)
-      .subscribe(board => this.sboard = board);
-  }
-
-  update(board) {
+  open(board) {
     console.log(board);
 const modalRef = this.modalService.open(BoardComponent);
 modalRef.componentInstance.board = board;
-
-   console.log(this.scrumUser);
-
-    this.boardService.updateBoard(this.sboard)
-    .subscribe(board => this.sboard = board);
+}
+  openToAdd(): void {
+    const modalRef = this.modalService.open(BoardComponent);
+    console.log(this.scrumUser);
   }
 
   getUserInfo() {
