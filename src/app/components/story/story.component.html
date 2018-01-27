@@ -29,6 +29,13 @@
               </label>
               <button type="button" class="close" (click)="deleteTodo(i)">x</button>
             </div>
+
+            <div *ngFor="let task of tasks; let i = index">
+              <label>
+                <input type="checkbox" [(ngModel)]="task.taskActive" name="check"> <div [ngClass]="{strike: task.taskActive}" class="label-text" (click)="toggleTaskActive(i)">{{task.taskDescription}}</div>
+              </label>
+              <button type="button" class="close" (click)="deleteTask(i)"><i style="font-size:70%;" class="fa fa-remove align-top pl-3"></i></button>
+            </div>
             
         </div>
       </div> 
