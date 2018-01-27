@@ -1,6 +1,15 @@
-# ScrumhubAngular
+# ScrumHub Angular View Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+
+## Team Members
+- Daniel Robinson
+- Francisco Palomino
+- Jeff Camacho
+- Jordan Delong
+- Shane Avery Sistoza
+
+## ScrumHub Angular Color Scheme
 
 ## Development server
 
