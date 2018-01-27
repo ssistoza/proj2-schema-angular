@@ -12,6 +12,7 @@ import { AlertService} from '../../services/alert.service';
 export class LoginComponent implements OnInit {
   public loading: boolean;
   public scrumUser: ScrumUser;
+  public model: ScrumUser = new ScrumUser(null, "", "", null, null, null, null);
 
   constructor(private newLoginService: LoginService, private router: Router, private alertService: AlertService) { }
 
@@ -24,15 +25,12 @@ export class LoginComponent implements OnInit {
   login(username: string, password: string) {
     this.loading = true; 
 
-    const tempUser = new ScrumUser(null, username, password, null, null, null, null);
+    const model = new ScrumUser(null, username, password, null, null, null, null);
 
-    this.newLoginService.loginPost(tempUser).subscribe(
+    this.newLoginService.loginPost(model).subscribe(
       one => {
-        
         this.scrumUser = one;
-        
         sessionStorage.setItem('userProfile', JSON.stringify(this.scrumUser));
-        
         this.router.navigate(['home']);
       },
       error => {
