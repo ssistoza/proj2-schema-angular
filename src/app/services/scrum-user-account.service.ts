@@ -15,7 +15,6 @@ const httpOptions = { // headers for the POST
 
 @Injectable()
 export class ScrumUserAccountService {
-
   url = environment.user.get;
   newBoardUrl = environment.user.create();
 
@@ -30,11 +29,4 @@ export class ScrumUserAccountService {
           return <ScrumUser> response.json();
         });
   }
-
-    /** POST: add a new board to the DB */
-    addBoard (board: Board): Observable<Board> {
-      console.log('Hello');
-      return this.httpPost.post<Board>(this.newBoardUrl, JSON.stringify(board), httpOptions);
-    }
-
 }
