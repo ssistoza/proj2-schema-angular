@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ScrumUser } from '../../models/scrumUser.model';
 import { ScrumUserAccountService } from '../../services/scrum-user-account.service';
 import { Board } from '../../models/board.model';
+import { NavbarService } from '../../services/navbar/navbar.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
   public scrumUser: ScrumUser;
   public sboard: Board;
 
-  constructor(private accountService: ScrumUserAccountService) { }
+  constructor(private accountService: ScrumUserAccountService, private navService: NavbarService  ) { }
 
   add(): void {
     console.log(this.scrumUser);
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
     this.getUserInfo();
+    this.navService.loggedIn();
   }
 
 }

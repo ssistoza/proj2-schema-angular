@@ -20,6 +20,7 @@ import { RegisterService } from './services/register/register.service';
 import { AuthGuard } from './services/auth.guard';
 import { AlertComponent } from './components/alert/alert.component';
 import { RegisterComponent } from './components/register/register.component';
+import { NavbarService } from './services/navbar/navbar.service';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { RegisterComponent } from './components/register/register.component';
     LoginService,
     AlertService,
     RegisterService,
+    NavbarService,
     AuthGuard
   ],
   bootstrap: [AppComponent],
