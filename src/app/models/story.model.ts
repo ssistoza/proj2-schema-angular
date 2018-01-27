@@ -9,7 +9,7 @@ export class Story {
     checklistName: string;
     doneStoryTimestamp: number;
     storyOrder: number;
-    swimlane: number;
+    slId: number;
     tasks: Task;
 
     constructor(storyId: number, points: number, storyName: string, checklistName: string, doneStoryTimestamp: number,
@@ -21,7 +21,7 @@ export class Story {
         this.checklistName = checklistName;
         this.doneStoryTimestamp = doneStoryTimestamp;
         this.storyOrder = storyOrder;
-        this.swimlane = swimlane;
+        this.slId = swimlane;
         this.tasks = tasks;
 
     }

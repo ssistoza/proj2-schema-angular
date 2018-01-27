@@ -67,10 +67,8 @@ export class StoryComponent implements OnInit {
   }
 
   moveLeft(laneIndex) {
-    // console.log('Move me From: ' + this.swimlaneIds[laneIndex] + ' to ' + this.swimlaneIds[laneIndex - 1]
-    // + ' and my order number will be ' + (this.swimlaneStoriesLength[laneIndex - 1] + 1));
     const oldOrder =  this.story.storyOrder;
-    this.story.swimlane = this.swimlaneIds[laneIndex - 1];
+    this.story.slId = this.swimlaneIds[laneIndex - 1];
     this.story.storyOrder = (this.swimlaneStoriesLength[laneIndex - 1] + 1);
     this.accountService.moveStory(this.story).subscribe(
       reorderService => this.story = reorderService,
@@ -81,36 +79,24 @@ export class StoryComponent implements OnInit {
 
   moveRight(laneIndex) {
     const oldOrder =  this.story.storyOrder;
-    this.story.swimlane = this.swimlaneIds[laneIndex + 1];
+    this.story.slId = this.swimlaneIds[laneIndex + 1];
     this.story.storyOrder = (this.swimlaneStoriesLength[laneIndex + 1] + 1);
     this.accountService.moveStory(this.story).subscribe(
       reorderService => this.story = reorderService,
       (error) => console.log('Error'),
-      // () => this.activeModal.close()
       () => this.adjustStoryOrders(oldOrder, laneIndex)
     );
   }
 
   adjustStoryOrders(currentIndex, laneIndex) {
-    console.log(currentIndex + ' Lane has ' + this.swimlaneStoriesLength[laneIndex]);
-    // if (currentIndex < (this.swimlaneStoriesLength[laneIndex] - 1)) {
-    //   console.log('Update');
-    //   this.adjustStoryOrders(currentIndex++, laneIndex);
-    // } else {
-    //   console.log('Update and close');
-    // }
     for (let i = currentIndex; i < this.swimlaneStoriesLength[laneIndex]; i++) {
-      // console.log('Shift ' + this.stories[i].storyName + 'From: ' +
-      // this.stories[i].storyOrder + ' To: ' + (this.stories[i].storyOrder - 1));
       this.stories[i].storyOrder = (this.stories[i].storyOrder - 1);
       if (i < this.swimlaneStoriesLength[laneIndex] - 1) {
-        console.log('Update');
           this.accountService.reorderStory(this.stories[i]).subscribe(
           reorderService => this.stories[i] = reorderService,
           (error) => console.log('Error')
         );
       } else {
-        console.log('Update and close');
         this.accountService.reorderStory(this.stories[i]).subscribe(
           reorderService => this.stories[i] = reorderService,
           (error) => console.log('Error'),
