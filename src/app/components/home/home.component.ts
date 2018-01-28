@@ -31,7 +31,7 @@ modalRef.componentInstance.board = board;
 }
   openToAdd(): void {
     const modalRef = this.modalService.open(BoardComponent);
-    console.log(this.scrumUser);
+
   }
 
   getUserInfo() {

@@ -15,7 +15,7 @@
   </div>
 
    <div class="modal-footer"> <!-- LEFT OFF HERE, TRYING TO MAKE SAVE() WORK TO PERSIST DATA -->
-      <button type="button" class="btn btn-primary" (click)="save(board)">Save</button>
+      <button type="button" class="btn btn-primary" (click)="save(board); activeModal.close('Close click')">Save</button>
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </ng-template>
@@ -30,11 +30,11 @@
   </div>
 
   <div class="modal-body">
-      <p><textarea> </textarea></p>
+      <p><textarea [(ngModel)]="sboard.bName">{{sboard.bName}} </textarea></p>
   </div>
 
   <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="add()">Save</button>
+      <button type="button" class="btn btn-primary" (click)="addNewBoard(); activeModal.close('Close click')">Save</button>
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </ng-template>
