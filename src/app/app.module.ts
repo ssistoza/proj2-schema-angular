@@ -70,7 +70,11 @@ import { TaskService } from './services/task.service';
     TaskService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StoryComponent, BoardComponent],
+  entryComponents: [
+    StoryComponent,
+    BoardComponent,
+    SwimlaneComponent
+  ],
   exports: []
 })
 export class AppModule { }
