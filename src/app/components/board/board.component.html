@@ -14,8 +14,8 @@
       <p><textarea [(ngModel)]="board.bName">{{board.bName}} </textarea></p>
   </div>
 
-   <div class="modal-footer"> <!-- LEFT OFF HERE, TRYING TO MAKE SAVE() WORK TO PERSIST DATA -->
-      <button type="button" class="btn btn-primary" (click)="save(board); activeModal.close('Close click')">Save</button>
+   <div class="modal-footer"> 
+      <button type="button" class="btn btn-primary" (click)="updateBoard(); activeModal.close('Close click')">Save</button>
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
 </ng-template>
