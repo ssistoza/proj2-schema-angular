@@ -36,32 +36,15 @@ export class TaskService{
 
     
     createTask (task: Task): Observable<Task> {
-      console.log("we made it to addTask -service")
-      console.log(this.createTaskUrl);
-      console.log(task);
-      console.log(JSON.stringify(task));
       return this.httpPost.post<Task>(this.createTaskUrl, JSON.stringify(task), httpOptions);
     }
 
     updateTask (task: Task): Observable<Task> {
-      console.log("we made it to updateTask -service");
-      console.log(this.updateTaskUrl);
-      console.log(task);
-      console.log(JSON.stringify(task))
       return this.httpPost.post<Task>(this.updateTaskUrl, JSON.stringify(task), httpOptions);
     }
 
     deleteTask (task: Task): Observable<Task>{
-        console.log("we made it to deleteTask -service");
-        console.log(this.deleteTaskUrl);
-        console.log(task);
-        console.log(JSON.stringify(task));
         return this.httpPost.post<Task>(this.deleteTaskUrl, JSON.stringify(task), httpOptions);
     }
-
-    /** POST: add a new board to the DB */
-    // addSwimlane (swimlane: Swimlane): Observable<Swimlane> {
-    //   return this.httpPost.post<Swimlane>(this.newSwimlaneUrl, JSON.stringify(swimlane), httpOptions);
-    // }
 
 }

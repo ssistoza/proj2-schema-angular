@@ -22,26 +22,19 @@ export class StoryComponent implements OnInit{
   constructor(public activeModal: NgbActiveModal,private taskService: TaskService) { }
 
   ngOnInit() {
-    console.log(this.story);
     if(this.story != null){
 
       this.story.tasks.map( (obj: any) => {
-        //console.log(obj);
-        //(<Task> obj) = new Task(obj.taskId, obj.taskDescription, obj.taskTimestamp, obj.storyId, obj.taskActive);
         this.getTask(obj.taskId);
         this.calculatePercentageDone();
-
-        //this.tasks.push(new Task(obj.taskId, obj.taskDescription, obj.taskTimestamp, obj.storyId, obj.taskActive));
-        
       });
-      //console.log(JSON.stringify(this.tasks));
+      
     
     }
   }
 
   createTask(){
-      console.log("we made it to createTask -component");
-      console.log(this.descriptionField);
+
       if(this.descriptionField != null){
 
         let task = new Task(0,this.descriptionField,null,this.story.storyId,false);
@@ -55,7 +48,6 @@ export class StoryComponent implements OnInit{
 
         this.taskService.createTask(task).subscribe(
           service => {
-            console.log("we made it to createTask subscribe");
 
             this.tasks.push(service);
             this.story.tasks = this.tasks;
@@ -76,11 +68,10 @@ export class StoryComponent implements OnInit{
         if(service.taskActive == true)
         {
           this.value += 1;
-          //console.log("we made it to service condition");
+         
         }
         this.max += 1;
         this.tasks.push(service);
-        //console.log((<Task>service));
         this.calculatePercentageDone();
       }
 
@@ -106,20 +97,17 @@ export class StoryComponent implements OnInit{
       service => {
 
         this.tasks[index] = service
-        console.log((<Task>service));
         
       }
 
     );
    
-    //console.log(JSON.stringify(new Task(task.taskId,task.taskDescription,task.taskTimestamp,task.storyId,(!task.taskActive))));
   }
 
   deleteTask(index: number) {
-    console.log("made it to deleteTask -component")
+    
     let task = this.tasks[index];
 
-    console.log(task)
 
     if((task.taskActive) == true)
     {
@@ -133,16 +121,10 @@ export class StoryComponent implements OnInit{
       service => {
 
         this.tasks[index] = service
-        console.log(service);
         this.tasks.splice(index, 1);
         
       });
 
-    
-
-    
-    
-    //console.log(JSON.stringify(this.tasks));
   }
 
   calculatePercentageDone(){
@@ -153,7 +135,6 @@ export class StoryComponent implements OnInit{
     else{
       this.percentageDone = 0;
     }
-    console.log("PercentageDone: ", this.percentageDone);
   }
 
 }
