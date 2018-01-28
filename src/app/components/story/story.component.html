@@ -6,23 +6,24 @@
 <div *ngIf="story != null; then viewStory else createStory">
 </div>
 <ng-template #viewStory>
-  <div class="modal-header">
-    <h4 class="modal-title">Update story</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+    <div class="modal-header">
+        <h4 class="modal-title">Update story {{laneIndex}} {{swimlaneStoriesLength.length}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
   <div class="modal-body">
+    <p><textarea [(ngModel)]="story.storyName">{{story.storyName}}</textarea></p>
+    <hr>
     <div class="row">
-      <div class="col-12 text-right">
-        Previous
-        <i (click)="moveLeft(laneIndex)" *ngIf="laneIndex !== 0" class="btn btn-outline-dark material-icons">&#xE5C4;</i>
-        <i (click)="moveRight(laneIndex)" *ngIf="laneIndex < storiesLength" class="btn btn-outline-dark material-icons">&#xE5C8;</i> Next
+      <div class="col-6 text-left">
+        <span *ngIf="laneIndex !== 0"><i (click)="moveLeft(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C4;</i> Previous Swimlane</span>
+      </div>
+      <div class="col-6 text-right">
+        <span *ngIf="laneIndex < swimlaneStoriesLength.length - 1">Next Swimlane <i (click)="moveRight(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C8;</i></span>
       </div>
     </div>
-    <p>
-      <textarea [(ngModel)]="story.storyName">{{story.storyName}}</textarea>
-    </p>
+    <hr>
     <div class="row">
       <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
       <div class="col-8">
@@ -89,12 +90,12 @@
 </ng-template>
 
 <ng-template #createStory>
-  <div class="modal-header">
-    <h4 class="modal-title">Create a story</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+    <div class="modal-header">
+        <h4 class="modal-title">Create a story {{laneIndex}} {{swimlaneStoriesLength}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
   <div class="modal-body">
     <p>
       <textarea [(ngModel)]="storyName" placeholder="Story name...">{{storyName}}</textarea>

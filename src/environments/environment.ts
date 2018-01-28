@@ -12,6 +12,7 @@ export const environment = {
   user: {
     create: () => `${context}/user/create`,
     get: (userid: number) => `${context}/user/${userid}`,
+    getByUser: () => `${context}/user/checkExists/`,
     all: () => `${context}/user/all`,
     update: () => `${context}/user/update`,
     delete: () => `${context}/user/delete`,

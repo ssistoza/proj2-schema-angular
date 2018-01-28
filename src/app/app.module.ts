@@ -28,6 +28,8 @@ import { RolesService } from './services/roles.service';
 import { BoardMember } from './models/boardMember.model';
 import { BoardMemberService } from './services/board-member.service';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
+import { BoardMemberComponent } from './components/board-member/board-member.component';
+
 import { TaskComponent } from './components/task/task.component';
 import { TaskService } from './services/task.service';
 
@@ -46,6 +48,7 @@ import { TaskService } from './services/task.service';
     StoriesComponent,
     RegisterComponent,
     AlertComponent,
+    BoardMemberComponent,
     TaskComponent
   ],
   imports: [
@@ -73,7 +76,7 @@ import { TaskService } from './services/task.service';
   entryComponents: [
     StoryComponent,
     BoardComponent,
-    SwimlaneComponent
+    SwimlaneComponent, BoardMemberComponent
   ],
   exports: []
 })

@@ -9,6 +9,7 @@ import { Board } from '../models/board.model';
 import { Swimlane } from '../models/swimlane.model';
 import { Story } from '../models/story.model';
 import { environment } from '../../environments/environment';
+import { BoardMember } from '../models/boardMember.model';
 
 const httpOptions = { // headers for the POST
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -32,10 +33,28 @@ export class ScrumUserAccountService {
         });
   }
 
+  getScrumUsers(): Observable<ScrumUser[]> {
+    return this.httpGet
+        .get(environment.user.all())
+        // must import Response datatype
+        .map( (response: Response) => {
+          console.log(response);
+          return <ScrumUser[]> response.json();
+        });
+  }
+
     /** POST: add a new board to the DB */
     addBoard (board: Board): Observable<Board> {
       console.log('Hello');
       return this.httpPost.post<Board>(environment.board.create(), JSON.stringify(board), httpOptions);
+    }
+
+    addBoardMember (bMember: BoardMember): Observable<BoardMember> {
+      return this.httpPost.post<BoardMember>(environment.boardmember.create(), JSON.stringify(bMember), httpOptions);
+    }
+
+    deleteBoardMember (bMember: BoardMember): Observable<BoardMember> {
+      return this.httpPost.post<BoardMember>(environment.boardmember.delete(), JSON.stringify(bMember), httpOptions);
     }
 
     /** POST: add a new swimlane to the DB */
@@ -73,5 +92,9 @@ export class ScrumUserAccountService {
       return this.httpPost.post<Story>(environment.story.move(), JSON.stringify(story), httpOptions);
     }
 
+    /** POST: check if user exists */
+    checkExists (user: ScrumUser): Observable<ScrumUser> {
+      return this.httpPost.post<ScrumUser>(environment.user.getByUser(), JSON.stringify(user), httpOptions);
+    }
 
 }
