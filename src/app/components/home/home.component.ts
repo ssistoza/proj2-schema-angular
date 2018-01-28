@@ -41,11 +41,12 @@ export class HomeComponent implements OnInit {
     this.accountService.getScrumUserAccount(this.sessionService.getScrumUserId()).subscribe(
       service => this.scrumUser = service
     );
-
   }
+
   ngOnInit() {
     this.getUserInfo();
     this.navService.loggedIn();
   }
 
+  
 }
