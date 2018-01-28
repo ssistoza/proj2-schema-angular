@@ -27,6 +27,7 @@ body{
 
 .material-icons{
     font-size: 12px!important;
+    min-width: 50px!important;
 }
 /*board name*/
 #board-name{

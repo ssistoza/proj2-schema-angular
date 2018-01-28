@@ -8,13 +8,17 @@
         </button>
       </div>
   <div class="modal-body">
-      <div class="row">          
-        <div class="col-12 text-right">
-            Previous <i (click)="moveLeft(laneIndex)" *ngIf="laneIndex !== 0" class="btn btn-outline-dark material-icons">&#xE5C4;</i> 
-          <i (click)="moveRight(laneIndex)" *ngIf="laneIndex < storiesLength" class="btn btn-outline-dark material-icons">&#xE5C8;</i> Next
-        </div>
-      </div>
     <p><textarea [(ngModel)]="story.storyName">{{story.storyName}}</textarea></p>
+    <hr>
+    <div class="row">
+      <div class="col-6 text-left">
+        <span *ngIf="laneIndex !== 0"><i (click)="moveLeft(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C4;</i> Previous Swimlane</span>
+      </div>
+      <div class="col-6 text-right">
+        <span *ngIf="laneIndex < storiesLength">Next Swimlane <i (click)="moveRight(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C8;</i></span>
+      </div>
+    </div>
+    <hr>
     <div class="row">
         <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
         <div class="col-8">

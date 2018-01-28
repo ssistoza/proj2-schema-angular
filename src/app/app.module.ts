@@ -24,6 +24,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarService } from './services/navbar/navbar.service';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
+import { BoardMemberComponent } from './components/board-member/board-member.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { SwimlaneComponent } from './components/swimlane/swimlane.component';
     LoginComponent,
     StoriesComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    BoardMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,7 @@ import { SwimlaneComponent } from './components/swimlane/swimlane.component';
     BoardService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StoryComponent, BoardComponent],
+  entryComponents: [StoryComponent, BoardComponent, SwimlaneComponent],
   exports: []
 })
 export class AppModule { }
