@@ -1,5 +1,10 @@
+<!-- <link rel="stylesheet" href="assets/fonts/font-awesome-4.5.0/css/font-awesome.min.css"> -->
+<!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+<link rel="stylesheet" href="assets/css/cssprogress.css">
 
-<div *ngIf="story != null; then viewStory else createStory"></div>
+
+<div *ngIf="story != null; then viewStory else createStory">
+</div>
 <ng-template #viewStory>
     <div class="modal-header">
         <h4 class="modal-title">Update story {{laneIndex}} {{swimlaneStoriesLength.length}}</h4>
@@ -20,49 +25,97 @@
     </div>
     <hr>
     <div class="row">
-        <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
-        <div class="col-8">
-            <input class="form-control" [(ngModel)]="story.points" type="number" value="{{story.points}}">
-          </div>
+      <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
+      <div class="col-8">
+        <input class="form-control" [(ngModel)]="story.points" type="number" value="{{story.points}}">
       </div>
+    </div>
     <div class="row">
       <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
       <div class="col-8">
-          <input class="form-control" type="text" [(ngModel)]="story.checklistName" value="{{story.checklistName}}">
+        <input class="form-control" type="text" [(ngModel)]="story.checklistName" value="{{story.checklistName}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        
+        <div class="cssProgress">
+          <div class="progress2 my-4">
+            <div class="cssProgress-bar cssProgress-success cssProgress-active py-2" data-percent="65" [style.width]=" percentageDone + '%'">
+              <!-- <span class="cssProgress-label">65%</span> -->
+            </div>
+          </div>
         </div>
-    </div>      
+
+        <div>Completed: {{value}}/{{max}}</div>
+         
+          
+          <div *ngFor="let task of tasks; let i = index">
+            
+              <label class="py-2" style="font-size:120%">
+                <input type="checkbox" [(ngModel)]="task.taskActive" name="check">
+                <div [ngClass]="{strike: task.taskActive}" class="label-text" (click)="checkTask(i)">{{task.taskDescription}} </div>
+              </label>
+            
+              <div class="float-right align-top" (click)="deleteTask(i)">
+                  <i style="font-size:1.0em;" class="fa fa-remove"></i>
+              </div>
+          </div>
+       
+
+
+        <div class="rounded-circle m-4 fixed-bottom">
+          <i class="fa fa-plus-circle text-primary" style="font-size:300%;" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse"></i>
+        </div>
+        <div class="collapse" id="collapse">
+          <div class="card p-3 m-2">
+
+            <!-- <input [(ngModel)]="descriptionField" type="text" placeholder="My new task"> -->
+            <button class="btn btn-primary w-50 mx-auto my-4" (click)="createTask()" type="button" data-toggle="collapse" data-target="#collapse"
+              aria-expanded="false" aria-controls="collapse">Add Task</button>
+            <input class="form-control" type="text" [(ngModel)]="descriptionField" placeholder="My new task">
+            
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
-      <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
-      <button type="button" class="btn btn-primary" (click)="update()">Save</button>
+    <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
+    <button type="button" class="btn btn-primary" (click)="update()">Save</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-  </div> 
+  </div>
 </ng-template>
+
 <ng-template #createStory>
     <div class="modal-header">
         <h4 class="modal-title">Create a story {{laneIndex}} {{swimlaneStoriesLength}}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
   <div class="modal-body">
-      <p><textarea [(ngModel)]="storyName" placeholder="Story name...">{{storyName}}</textarea></p>
-      <div class="row">
-          <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
-          <div class="col-8">
-              <input class="form-control" [(ngModel)]="points" type="number" value="{{points}}">
-            </div>
-        </div>
-      <div class="row">
-        <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
-        <div class="col-8">
-            <input class="form-control" type="text" [(ngModel)]="checklistName" value="{{checklistName}}">
-          </div>
+    <p>
+      <textarea [(ngModel)]="storyName" placeholder="Story name...">{{storyName}}</textarea>
+    </p>
+    <div class="row">
+      <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
+      <div class="col-8">
+        <input class="form-control" [(ngModel)]="points" type="number" value="{{points}}">
       </div>
     </div>
-    <div class="modal-footer">
-        <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
-        <button type="button" class="btn btn-primary" (click)="add()">Save</button>
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-    </div>  
-  </ng-template>
+    <div class="row">
+      <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
+      <div class="col-8">
+        <input class="form-control" type="text" [(ngModel)]="checklistName" value="{{checklistName}}">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
+    <button type="button" class="btn btn-primary" (click)="add()">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</ng-template>

@@ -12,7 +12,7 @@ const httpOptions = {
 
 @Injectable()
 
-export class LoginService{
+export class LoginService {
   urlLogin = environment.user.login();
 
   public tempScrumUser: ScrumUser;
