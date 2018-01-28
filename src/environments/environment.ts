@@ -15,7 +15,8 @@ export const environment = {
     all: () => `${context}/user/all`,
     update: () => `${context}/user/update`,
     delete: () => `${context}/user/delete`,
-    login: () => `${context}/user/login`
+    login: () => `${context}/user/login`,
+    exists: () => `${context}/user/checkExists`
   },
 
   board: {
@@ -49,7 +50,8 @@ export const environment = {
   task: {
     get: (taskid: number) => `${context}/task/${taskid}`,
     create: () => `${context}/task/create`,
-    update: () => `${context}/task/update`
+    update: () => `${context}/task/update`,
+    delete: () => `${context}/task/delete`
   },
 
   swimlane: {

@@ -10,6 +10,7 @@ import { Swimlane } from '../models/swimlane.model';
 
 import { Story } from '../models/story.model';
 import { Task } from '../models/task.model';
+import { environment } from '../../environments/environment';
 
 const httpOptions = { // headers for the POST
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,17 +19,17 @@ const httpOptions = { // headers for the POST
 @Injectable()
 export class TaskService{
 
-   getTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/`;  // maybe user enviroment variables.. maybe
-   createTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/create`;
-   updateTaskUrl = 'http://localhost:8090/scrumhub/api/dev/task/update';
-   deleteTaskUrl = 'http://localhost:8090/scrumhub/api/dev/task/delete';
+   getTaskUrl = environment.task.get;
+   createTaskUrl = environment.task.create();
+   updateTaskUrl = environment.task.update();
+   deleteTaskUrl = environment.task.delete();
   
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { } // User HTTP for retreiving JSON
 
   getTask(id: number): Observable<Task> {
     return this.httpGet
-        .get(this.getTaskUrl + id)
+        .get(this.getTaskUrl(id))
         .map( (response: Response) => {
           return <Task> response.json();
         });
