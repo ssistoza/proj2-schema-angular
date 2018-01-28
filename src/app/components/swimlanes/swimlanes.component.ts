@@ -17,9 +17,9 @@ import {Router} from '@angular/router';
 export class SwimlanesComponent implements OnInit {
   public scrumUser: ScrumUser;
   public swimlanes: Swimlane[];
+  points: String[] = [];
   public swimlaneIds: number[] = [];
   public swimlaneStoriesLength: number [] = [];
-  public points: String[] = [];
 
   constructor(private modalService: NgbModal,
               private accountService: ScrumUserAccountService,

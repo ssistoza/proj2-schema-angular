@@ -3,20 +3,20 @@ export class Task {
     taskId: number;
     taskDescription: string;
     taskTimestamp: number;
-    story: number;
-    isTaskActive: boolean;
+    storyId: number;
+    taskActive: boolean;
 
     constructor(taskId: number,
         taskDescription: string,
         taskTimestamp: number,
-        story: number,
-        isTaskActive: boolean) {
+        storyId: number,
+        taskActive: boolean) {
 
         this.taskId = taskId;
         this.taskDescription = taskDescription;
         this.taskTimestamp = taskTimestamp;
-        this.story = story;
-        this.isTaskActive = isTaskActive;
+        this.storyId = storyId;
+        this.taskActive = taskActive;
 
-}
+    }
 }

@@ -28,7 +28,8 @@ import { RolesService } from './services/roles.service';
 import { BoardMember } from './models/boardMember.model';
 import { BoardMemberService } from './services/board-member.service';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
-
+import { TaskComponent } from './components/task/task.component';
+import { TaskService } from './services/task.service';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { SwimlaneComponent } from './components/swimlane/swimlane.component';
     LoginComponent,
     StoriesComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { SwimlaneComponent } from './components/swimlane/swimlane.component';
     BoardService,
     SessionService,
     RolesService,
-    BoardMemberService
+    BoardMemberService,
+    TaskService
   ],
   bootstrap: [AppComponent],
   entryComponents: [StoryComponent, BoardComponent],
