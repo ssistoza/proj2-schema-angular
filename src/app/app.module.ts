@@ -76,7 +76,7 @@ import { TaskService } from './services/task.service';
   entryComponents: [
     StoryComponent,
     BoardComponent,
-    SwimlaneComponent
+    SwimlaneComponent, BoardMemberComponent
   ],
   exports: []
 })
