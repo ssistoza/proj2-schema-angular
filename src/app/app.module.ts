@@ -23,8 +23,13 @@ import { AuthGuard } from './services/auth.guard';
 import { AlertComponent } from './components/alert/alert.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarService } from './services/navbar/navbar.service';
+import { SessionService } from './services/session.service';
+import { RolesService } from './services/roles.service';
+import { BoardMember } from './models/boardMember.model';
+import { BoardMemberService } from './services/board-member.service';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
 import { BoardMemberComponent } from './components/board-member/board-member.component';
+
 
 
 @NgModule({
@@ -58,7 +63,10 @@ import { BoardMemberComponent } from './components/board-member/board-member.com
     RegisterService,
     NavbarService,
     AuthGuard,
-    BoardService
+    BoardService,
+    SessionService,
+    RolesService,
+    BoardMemberService
   ],
   bootstrap: [AppComponent],
   entryComponents: [StoryComponent, BoardComponent, SwimlaneComponent],
