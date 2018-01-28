@@ -37,27 +37,17 @@
 <section id="scrum-container">
 <div class="row swimlanes">
 <!-- Iterate through swimlanes -->
-<<<<<<< HEAD
-<div class="float-md-left lane" *ngFor="let swimlane of swimlanes;">
-  <div class="swimlane" (click)="editSwimlane(swimlane)">
-    <h6>{{swimlane.slName}}</h6>
-=======
 <div class="float-md-left lane" *ngFor="let swimlane of swimlanes; let i = index ;">
   <div class="swimlane" (click)="editSwimlane(swimlane)">
     <h6>{{(swimlane.slName.length>20)? (swimlane.slName | slice:0:18)+'..':(swimlane.slName)}} 
       <i *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneLeft($event,swimlane.slOrder)">&#xE5C4;</i>
       <i *ngIf="i < swimlanes.length-1" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneRight($event,swimlane.slOrder)">&#xE5C8;</i>      
     </h6>
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
       <div class="story-container">
         <!-- Send stories from current iteration of swimlane -->
         <app-stories [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>        
       </div>
-<<<<<<< HEAD
-    <div class="add-story"><input (click)="newStory($event)" class="btn btn-primary" type="button"  value="Add a Story"></div>
-=======
     <div class="add-story"><input (click)="newStory($event,swimlane.slId,swimlane.stories.length)" class="btn btn-primary" type="button" value="Add a Story"></div>
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
   </div>
 </div>
 <div class="float-md-left lane">

@@ -16,27 +16,16 @@ import {Router} from '@angular/router';
 })
 export class SwimlanesComponent implements OnInit {
   public scrumUser: ScrumUser;
-<<<<<<< HEAD
-  public swimlanes: Swimlane;
-  points: String[] = [];
-=======
   public swimlanes: Swimlane[];
+  points: String[] = [];
   public swimlaneIds: number[] = [];
   public swimlaneStoriesLength: number [] = [];
-  public points: String[] = [];
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
 
   constructor(private modalService: NgbModal,
               private accountService: ScrumUserAccountService,
               private route: ActivatedRoute,
               public router: Router) { }
 
-<<<<<<< HEAD
-  newStory(event: Event) {   // opens story modal
-    event.stopPropagation();
-    const modalRef = this.modalService.open(StoryComponent);
-    modalRef.componentInstance.story = null;
-=======
   newStory(event: Event, swimlaneId: number, storiesLength: number) {   // opens story modal
     event.stopPropagation();
     const modalRef = this.modalService.open(StoryComponent);
@@ -44,27 +33,19 @@ export class SwimlanesComponent implements OnInit {
     modalRef.componentInstance.swimlaneId = swimlaneId;
     modalRef.componentInstance.storiesLength = storiesLength;
     modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1); }, 300));
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
   }
 
   editSwimlane(swimlane) {
     const modalRef = this.modalService.open(SwimlaneComponent);
     modalRef.componentInstance.swimlane = swimlane;
-<<<<<<< HEAD
-=======
     modalRef.componentInstance.properties = [this.getBoardId(), Object.keys(this.swimlanes).length];
     modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1); }, 600));
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
   }
 
   newSwimlane() {
     this.router.navigated = false;
     const modalRef = this.modalService.open(SwimlaneComponent);
     modalRef.componentInstance.properties = [this.getBoardId(), Object.keys(this.swimlanes).length];
-<<<<<<< HEAD
-    modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1);
-                                                console.log('I was Closed'); }, 1000));
-=======
     modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1); }, 300));
   }
 
@@ -95,7 +76,6 @@ export class SwimlanesComponent implements OnInit {
       () => this.getUserInfo(1)
     );
     // console.log(s);
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
   }
 
   createRange() {   // made up function to create the bar sizes for the mobile view...
@@ -116,10 +96,6 @@ export class SwimlanesComponent implements OnInit {
     return styles;
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
   getUserInfo(userId: number) {
     this.accountService.getScrumUserAccount(userId).subscribe(
       (service) => this.scrumUser = service,
@@ -129,15 +105,6 @@ export class SwimlanesComponent implements OnInit {
   }
 
   getCurrentSwimlane (boardId: number) {
-<<<<<<< HEAD
-    for (let i = 0; i < Object.keys(this.scrumUser.associatedBoards).length; i++) {
-      if (this.scrumUser.associatedBoards[i].sboard.bId === boardId) {
-        this.swimlanes = this.scrumUser.associatedBoards[i].sboard.swimlanes;
-      }
-    }
-    console.log(Object.keys(this.swimlanes).length);
-
-=======
     this.swimlaneStoriesLength = [];
     this.swimlaneIds = [];
     for (let i = 0; i < Object.keys(this.scrumUser.associatedBoards).length; i++) {
@@ -149,7 +116,6 @@ export class SwimlanesComponent implements OnInit {
         }
       }
     }
->>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
     this.createRange();
   }
 
