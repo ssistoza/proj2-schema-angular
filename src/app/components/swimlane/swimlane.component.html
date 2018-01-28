@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="modal-header">
   <h4 class="modal-title">Swimlane</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -13,10 +14,36 @@
 
       </select></div>
       </div>      
+=======
+
+<div *ngIf="swimlane != null; then viewSwimLane else createSwimLane"></div>
+<ng-template #viewSwimLane>
+<div class="modal-header">
+    <h4 class="modal-title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Edit Swimlane name</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <p><textarea [(ngModel)]="swimlane.slName" placeholder="Swimlane name...">{{swimlane.slName}}</textarea></p>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="update();activeModal.close('Close click');">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="swimlane.slName=oldName; activeModal.close('Close click')">Close</button>
+    </div>     
+>>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
   </div>
 </ng-template>
 
 <ng-template #createSwimLane>
+<<<<<<< HEAD
+=======
+<div class="modal-header">
+    <h4 class="modal-title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Create Swimlane</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+>>>>>>> 50298359ceea5210b467cbdbbdf38f4378fa1739
   <div class="modal-body">
     <p><textarea [(ngModel)]="swimLaneName" placeholder="Swimlane name...">{{swimLaneName}}</textarea></p>
     <span></span>   

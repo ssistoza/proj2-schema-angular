@@ -10,6 +10,7 @@
     box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.377);
     cursor: pointer;
 }
+
 @media all and (max-width: 768px){
 
     .story {

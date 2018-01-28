@@ -1,6 +1,17 @@
 
 
-<div *ngFor="let story of lane">
-    <div class="story" (click)="open($event,story)"><strong>{{story.points}}</strong> {{story.storyName}} </div>
+<div *ngFor="let story of lane; let i = index ;">
+    <div class="story" (click)="open($event,story)"> 
+        <div class="row">
+            <div class="col-7">
+                <strong>{{story.points}}</strong> 
+                {{(story.storyName.length>80) ? (story.storyName | slice:0:80)+'..':(story.storyName)}}
+            </div>
+            <div class="col-5 text-right">
+                <i *ngIf="i < lane.length-1" class="btn btn-outline-dark material-icons" (click)="shiftStoryDown($event,story.storyOrder)">&#xE5DB;</i>
+                <i *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftStoryUp($event,story.storyOrder)">&#xE5D8;</i>
+            </div>
+        </div>
+    </div>
 </div>
 

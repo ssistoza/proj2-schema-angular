@@ -1,69 +1,107 @@
-
-<div class="modal-header">
-  <h4 class="modal-title">Hi there!</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+<div *ngIf="story != null; then viewStory else createStory">
 </div>
-<div *ngIf="story != null; then viewStory else createStory"></div>
 <ng-template #viewStory>
-  <div class="modal-body">
-    <p><textarea>{{story.storyName}}</textarea></p>
-    <div class="row">
-
-      <div class="col-md-6">Move to swimlane <select>
-
-      </select></div>
-      <div class="col-md-6">Move position <select>
-
-      </select>
-    </div>
-
-        <div class="col-md-12">
-    
-            <h2>{{story.checklistName}}</h2>
-           
-            <div class="progress m-2">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="4" [style.width]=" percentageDone + '%'"></div>
-              </div>
-
-              
-              <div>Completed: {{value}}/{{max}}</div>
-            <div *ngFor="let task of tasks; let i = index">
-              <label>
-                <input type="checkbox" [(ngModel)]="task.taskActive" name="check"> <div [ngClass]="{strike: task.taskActive}" class="label-text" (click)="checkTask(i)">{{task.taskDescription}}</div>
-              </label>
-              <button type="button" class="close" (click)="deleteTask(i)"><i style="font-size:70%;" class="fa fa-remove align-top pl-3"></i></button>
-            </div>
-
-
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
-                <i class="fa fa-plus-circle" style="font-size:200%;"></i>
-                </button>
-                <div class="collapse" id="collapse">
-                  <div class="card p-3 m-2">
-            
-                        <input [(ngModel)]="descriptionField" type="text" placeholder="My new task">
-            
-                    <button class="btn btn-primary m-2" style="width:50%;" (click)="createTask()" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">Add Task</button>
-                    
-                  </div>
-                </div>
-        </div>
-        
-        
-      </div> 
-          
+  <div class="modal-header">
+    <h4 class="modal-title">Update story</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-</ng-template>
-<ng-template #createStory>
   <div class="modal-body">
-      <p><textarea #storyName placeholder="Story name..."></textarea></p>     
+    <div class="row">
+      <div class="col-12 text-right">
+        Previous
+        <i (click)="moveLeft(laneIndex)" *ngIf="laneIndex !== 0" class="btn btn-outline-dark material-icons">&#xE5C4;</i>
+        <i (click)="moveRight(laneIndex)" *ngIf="laneIndex < storiesLength" class="btn btn-outline-dark material-icons">&#xE5C8;</i> Next
+      </div>
     </div>
-  </ng-template>
-  <div class="modal-footer">
+    <p>
+      <textarea [(ngModel)]="story.storyName">{{story.storyName}}</textarea>
+    </p>
+    <div class="row">
+      <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
+      <div class="col-8">
+        <input class="form-control" [(ngModel)]="story.points" type="number" value="{{story.points}}">
+      </div>
+    </div>
+    <div class="row">
+      <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
+      <div class="col-8">
+        <input class="form-control" type="text" [(ngModel)]="story.checklistName" value="{{story.checklistName}}">
+      </div>
+    </div>
 
-    
-      <button type="button" class="btn btn-primary">Save</button>
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="progress m-2">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="2" aria-valuemin="0"
+            aria-valuemax="4" [style.width]=" percentageDone + '%'"></div>
+        </div>
+
+
+        <div>Completed: {{value}}/{{max}}</div>
+        <div *ngFor="let task of tasks; let i = index">
+          <label>
+            <input type="checkbox" [(ngModel)]="task.taskActive" name="check">
+            <div [ngClass]="{strike: task.taskActive}" class="label-text" (click)="checkTask(i)">{{task.taskDescription}}</div>
+          </label>
+          <button type="button" class="close" (click)="deleteTask(i)">
+            <i style="font-size:70%;" class="fa fa-remove align-top pl-3"></i>
+          </button>
+        </div>
+
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+          <i class="fa fa-plus-circle" style="font-size:200%;"></i>
+        </button>
+        <div class="collapse" id="collapse">
+          <div class="card p-3 m-2">
+
+            <input [(ngModel)]="descriptionField" type="text" placeholder="My new task">
+
+            <button class="btn btn-primary m-2" style="width:50%;" (click)="createTask()" type="button" data-toggle="collapse" data-target="#collapse"
+              aria-expanded="false" aria-controls="collapse">Add Task</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
+    <button type="button" class="btn btn-primary" (click)="update()">Save</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
+</ng-template>
+
+<ng-template #createStory>
+  <div class="modal-header">
+    <h4 class="modal-title">Create a story</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <textarea [(ngModel)]="storyName" placeholder="Story name...">{{storyName}}</textarea>
+    </p>
+    <div class="row">
+      <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
+      <div class="col-8">
+        <input class="form-control" [(ngModel)]="points" type="number" value="{{points}}">
+      </div>
+    </div>
+    <div class="row">
+      <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
+      <div class="col-8">
+        <input class="form-control" type="text" [(ngModel)]="checklistName" value="{{checklistName}}">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
+    <button type="button" class="btn btn-primary" (click)="add()">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</ng-template>

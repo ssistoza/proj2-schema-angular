@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ScrumUser } from '../../models/scrumUser.model';
 import { ScrumUserAccountService } from '../../services/scrum-user-account.service';
 import { Board } from '../../models/board.model';
+import { BoardService } from '../../services/board.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {BoardComponent} from '../board/board.component';
+import { NavbarService } from '../../services/navbar/navbar.service';
 
 @Component({
   selector: 'app-home',
@@ -13,14 +18,20 @@ export class HomeComponent implements OnInit {
   public scrumUser: ScrumUser;
   public sboard: Board;
 
-  constructor(private accountService: ScrumUserAccountService) { }
+  constructor(private accountService: ScrumUserAccountService,
+              private boardService: BoardService,
+              private modalService: NgbModal,
+              private navService: NavbarService
+  ) {}
 
-  add(): void {
-    console.log(this.scrumUser);
-    this.sboard = new Board(null, 'I asdfdsm Creatdfged again!!!', null);
+  open(board) {
+    console.log(board);
+const modalRef = this.modalService.open(BoardComponent);
+modalRef.componentInstance.board = board;
+}
+  openToAdd(): void {
+    const modalRef = this.modalService.open(BoardComponent);
 
-    this.accountService.addBoard(this.sboard)
-      .subscribe(board => this.sboard = board);
   }
 
   getUserInfo() {
@@ -31,6 +42,7 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
     this.getUserInfo();
+    this.navService.loggedIn();
   }
 
 }
