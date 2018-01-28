@@ -1,17 +1,14 @@
-<nav *ngIf="navService.visible" class="navbar-expand-md navbar-dark navbar">
-  <a class="navbar-brand" href="#">ScrumHub</a>
+<nav *ngIf="navService.visible" class="navbar-expand-md navbar-dark navbar bg-dark">
+  <a class="navbar-brand" href="#">Scrum<i class="fa fa-slack text-primary fa-2x" ></i>ub</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>  
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">My Account</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Home</a>
+        </li>
     </ul>
-    <a class="btn btn-primary">Logout</a>
+    <a class="btn btn-primary" (click)="logoutNavbar()">Logout</a>
   </div>
 </nav>
