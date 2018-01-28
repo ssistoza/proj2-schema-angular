@@ -49,6 +49,10 @@ ol.carousel-indicators {
     box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
+/*google material-icons*/
+
+
+/*Google Scrollbar*/
 ::-webkit-scrollbar {
     width: 12px;
 }
