@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
               private boardService: BoardService,
               private modalService: NgbModal,
               private navService: NavbarService
-  ) {}
+  ) { }
 
   open(board) {
     console.log(board);
