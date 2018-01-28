@@ -1,6 +1,6 @@
 <!-- Get Swimlanes from current board and each swimlane's Stories -->
 <section id="board-name">
-  <h4>Board Name<input class="btn btn-primary float-right" type="button" value="Members"></h4>    
+  <h4>Board Name<input class="btn btn-primary float-right" type="button" value="Members" (click)="addMemberModal()"></h4>    
 </section>
 
 <section id="mobile-swimlanes">
@@ -24,11 +24,11 @@
               </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <a (click)="carouselPrev()" class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <a (click)="carouselNext()" class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>

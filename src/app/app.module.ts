@@ -69,7 +69,7 @@ import { BoardMemberComponent } from './components/board-member/board-member.com
     BoardMemberService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [StoryComponent, BoardComponent, SwimlaneComponent],
+  entryComponents: [StoryComponent, BoardComponent, SwimlaneComponent, BoardMemberComponent],
   exports: []
 })
 export class AppModule { }

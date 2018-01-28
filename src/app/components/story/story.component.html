@@ -2,7 +2,7 @@
 <div *ngIf="story != null; then viewStory else createStory"></div>
 <ng-template #viewStory>
     <div class="modal-header">
-        <h4 class="modal-title">Update story</h4>
+        <h4 class="modal-title">Update story {{laneIndex}} {{swimlaneStoriesLength.length}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,7 +15,7 @@
         <span *ngIf="laneIndex !== 0"><i (click)="moveLeft(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C4;</i> Previous Swimlane</span>
       </div>
       <div class="col-6 text-right">
-        <span *ngIf="laneIndex < storiesLength">Next Swimlane <i (click)="moveRight(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C8;</i></span>
+        <span *ngIf="laneIndex < swimlaneStoriesLength.length - 1">Next Swimlane <i (click)="moveRight(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C8;</i></span>
       </div>
     </div>
     <hr>
@@ -40,7 +40,7 @@
 </ng-template>
 <ng-template #createStory>
     <div class="modal-header">
-        <h4 class="modal-title">Create a story</h4>
+        <h4 class="modal-title">Create a story {{laneIndex}} {{swimlaneStoriesLength}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
