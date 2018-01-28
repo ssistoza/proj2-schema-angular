@@ -60,9 +60,4 @@ input[type="checkbox"]:disabled + .label-text:before{
 	100%{transform: scale(1);}
 }
 
-progress::-webkit-progress-bar { 
-	background: #ccc; 
-	border-radius: 5px;
-}
-progress::-webkit-progress-value { background: #19c93f; border-radius: 5px;}
 

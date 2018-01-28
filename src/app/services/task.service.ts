@@ -20,8 +20,9 @@ export class TaskService{
 
    getTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/`;  // maybe user enviroment variables.. maybe
    createTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/create`;
-   updateTaskUrl = `http://localhost:8090/scrumhub/api/dev/task/update`;
-  // newSwimlaneUrl = `http://localhost:8090/scrumhub/api/dev/createSwimlane`;
+   updateTaskUrl = 'http://localhost:8090/scrumhub/api/dev/task/update';
+   deleteTaskUrl = 'http://localhost:8090/scrumhub/api/dev/task/delete';
+  
 
   constructor(private httpPost: HttpClient, private httpGet: Http) { } // User HTTP for retreiving JSON
 
@@ -29,21 +30,33 @@ export class TaskService{
     return this.httpGet
         .get(this.getTaskUrl + id)
         .map( (response: Response) => {
-          //console.log(response.json());
           return <Task> response.json();
         });
   }
 
     
-    addTask (task: Task): Observable<Task> {
+    createTask (task: Task): Observable<Task> {
+      console.log("we made it to addTask -service")
+      console.log(this.createTaskUrl);
       console.log(task);
+      console.log(JSON.stringify(task));
       return this.httpPost.post<Task>(this.createTaskUrl, JSON.stringify(task), httpOptions);
     }
 
     updateTask (task: Task): Observable<Task> {
       console.log("we made it to updateTask -service");
-      
+      console.log(this.updateTaskUrl);
+      console.log(task);
+      console.log(JSON.stringify(task))
       return this.httpPost.post<Task>(this.updateTaskUrl, JSON.stringify(task), httpOptions);
+    }
+
+    deleteTask (task: Task): Observable<Task>{
+        console.log("we made it to deleteTask -service");
+        console.log(this.deleteTaskUrl);
+        console.log(task);
+        console.log(JSON.stringify(task));
+        return this.httpPost.post<Task>(this.deleteTaskUrl, JSON.stringify(task), httpOptions);
     }
 
     /** POST: add a new board to the DB */
