@@ -10,6 +10,7 @@ import { Swimlane } from '../../models/swimlane.model';
 import {Router} from '@angular/router';
 import { BoardMemberComponent } from '../board-member/board-member.component';
 import { SessionService } from '../../services/session.service';
+import { BurndownComponent } from '../burndown/burndown.component';
 
 @Component({
   selector: 'app-swimlanes',
@@ -35,6 +36,12 @@ export class SwimlanesComponent implements OnInit {
               private route: ActivatedRoute,
               public router: Router,
               private sessionService: SessionService) { }
+
+    viewChart(event: Event) {
+      event.stopPropagation();
+      const modalRef = this.modalService.open(BurndownComponent);
+      modalRef.componentInstance.remainingPoints = Math.abs(this.totalPoints - this.completedPoints);
+    }
 
   newStory(event: Event, swimlaneId: number, storiesLength: number) {   // opens story modal
     event.stopPropagation();

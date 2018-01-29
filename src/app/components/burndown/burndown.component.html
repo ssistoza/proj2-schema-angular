@@ -1,0 +1,11 @@
+<div class="modal-header">
+
+</div>
+<div class="modal-body">
+  <h1>{{remainingPoints}}</h1>
+  <p-chart #chart type="line" [data]="data" [options]="options"></p-chart>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
