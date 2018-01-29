@@ -1,6 +1,6 @@
 <!-- Get Swimlanes from current board and each swimlane's Stories -->
 <section id="board-name">
-  <h4>Board Name<input class="btn btn-primary float-right" type="button" value="Members" (click)="addMemberModal()"></h4>    
+  <h4>Board Name<div class="float-right"><input class="btn btn-primary mr-2" type="button" value="Burndown" (click)="viewBurndown()"><input class="btn btn-primary" type="button" value="Members" (click)="addMemberModal()"></div></h4>    
 </section>
 
 <section id="mobile-swimlanes">
@@ -40,8 +40,8 @@
 <div class="float-md-left lane" *ngFor="let swimlane of swimlanes; let i = index ;">
   <div class="swimlane" (click)="editSwimlane(swimlane)">
     <h6>{{(swimlane.slName.length>20)? (swimlane.slName | slice:0:18)+'..':(swimlane.slName)}} 
-      <i *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneLeft($event,swimlane.slOrder)">&#xE5C4;</i>
-      <i *ngIf="i < swimlanes.length-1" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneRight($event,swimlane.slOrder)">&#xE5C8;</i>      
+      <div *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneLeft($event,swimlane.slOrder)"><i class="fa fa-chevron-left"></i></div>
+      <div *ngIf="i < swimlanes.length-1" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneRight($event,swimlane.slOrder)"><i class="fa fa-chevron-right"></i></div>      
     </h6>
       <div class="story-container">
         <!-- Send stories from current iteration of swimlane -->
