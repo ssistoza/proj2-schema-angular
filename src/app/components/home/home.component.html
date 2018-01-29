@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row pt-5" *ngIf="scrumUser != null">
     <div class="col-12"><div><h1 class="header-name">{{ scrumUser.firstname }}'s Boards</h1></div></div>
-    <div *ngFor="let board of scrumUser.associatedBoards" class="col-lg-4 col-md-6 col-sm-12">
+    <div *ngFor="let board of scrumUser.associatedBoards" class="col-lg-4 col-md-6 col-sm-12 pt-2">
         
       <div routerLink="/swimlane/{{board.sboard.bId}}" class="card">
-        <div class="card-body">
+        <div class="card-body minimum-size">
             <h4 class="card-title"> {{ board.sboard.bName }} </h4>
           <p class="card-text">{{ board.memberRole.roleType | lowercase }} </p>
           <div *ngIf = "board.memberRole.roleId != 3" class="btn btn-primary" (click)="open(board, $event)"><i class="fa fa-pencil"></i> Edit</div>
@@ -12,7 +12,7 @@
       </div>
 
     </div>
-    <div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="col-lg-4 col-md-6 col-sm-12 pt-2">
         <div routerLink="/home" class="card" id="create-new-board" (click)="openToAdd()">
           <div class="card-body">
             <h4 class="card-title"><i class="fa fa-plus"></i> Create New Board</h4>

@@ -7,6 +7,9 @@
     cursor: pointer;
 }
 
+.minimum-size {
+    min-height: 168px;
+}
 @media all and (max-width: 768px){
  
 }
