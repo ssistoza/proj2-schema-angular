@@ -26,7 +26,6 @@ ol.carousel-indicators {
 }
 .swimlane{
     background: silver;
-    border-radius: 10px;
     margin: 5px;
     padding:10px;
     width:300px;
@@ -42,9 +41,7 @@ ol.carousel-indicators {
     overflow-x: auto;
     overflow-y: hidden;
 }
-.create{
-    background: #909090;
-}
+
 .swimlane:hover{
     box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.5);
     cursor: pointer;

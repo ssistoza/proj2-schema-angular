@@ -31,6 +31,7 @@ import { BoardMemberComponent } from './components/board-member/board-member.com
 
 import { TaskComponent } from './components/task/task.component';
 import { TaskService } from './services/task.service';
+import { BurndownComponent } from './components/burndown/burndown.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { TaskService } from './services/task.service';
     RegisterComponent,
     AlertComponent,
     BoardMemberComponent,
-    TaskComponent
+    TaskComponent,
+    BurndownComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,9 @@ import { TaskService } from './services/task.service';
   entryComponents: [
     StoryComponent,
     BoardComponent,
-    SwimlaneComponent, BoardMemberComponent
+    SwimlaneComponent,
+    BoardMemberComponent,
+    BurndownComponent
   ],
   exports: []
 })

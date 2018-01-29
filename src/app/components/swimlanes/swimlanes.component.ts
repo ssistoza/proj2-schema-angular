@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Swimlane } from '../../models/swimlane.model';
 import {Router} from '@angular/router';
 import { BoardMemberComponent } from '../board-member/board-member.component';
+import { BurndownComponent } from '../burndown/burndown.component';
 
 @Component({
   selector: 'app-swimlanes',
@@ -164,5 +165,9 @@ export class SwimlanesComponent implements OnInit {
 
   ngOnInit() {
     this.getUserInfo(1);
+  }
+
+  viewBurndown() {
+    const modalRef = this.modalService.open(BurndownComponent);
   }
 }
