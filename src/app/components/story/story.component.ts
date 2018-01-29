@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { Task } from '../../models/task.model'
+import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 import { ScrumUserAccountService } from '../../services/scrum-user-account.service';
 import {Subject} from 'rxjs/Subject';
@@ -13,15 +13,16 @@ import { Story } from '../../models/story.model';
   templateUrl: './story.component.html',
   styleUrls: ['./story.component.css']
 })
-export class StoryComponent implements OnInit{
+export class StoryComponent implements OnInit {
   @Input() story;
   @Input() stories;
   @Input() swimlane;
   @Input() swimlaneId;
   @Input() storiesLength: number;
   @Input() laneIndex;
-  @Input() swimlaneStoriesLength;
+  @Input() swimlaneStoriesLength = [];
   @Input() swimlaneIds;
+  @Input() myRole;
 
   public storyName: string;
   public checklistName: string;
@@ -40,7 +41,10 @@ export class StoryComponent implements OnInit{
 
   descriptionField: string = "";
 
-  constructor(public activeModal: NgbActiveModal, private accountService: ScrumUserAccountService, public router: Router, private taskService: TaskService) { }
+  constructor(public activeModal: NgbActiveModal,
+    private accountService: ScrumUserAccountService,
+    public router: Router,
+    private taskService: TaskService) { }
 
   ngOnInit() {
 
@@ -192,7 +196,7 @@ export class StoryComponent implements OnInit{
         .subscribe(
           storyService => this.story = storyService,
           (error) => console.log('Error'),
-          () => this.activeModal.close()
+          () => { this.activeModal.close(); }
       );
     } else {
       this.changeAlertMessage(`Please fill in the inputs.`);

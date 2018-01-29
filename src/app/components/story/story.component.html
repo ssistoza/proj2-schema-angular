@@ -13,9 +13,9 @@
         </button>
       </div>
   <div class="modal-body">
-    <p><textarea [(ngModel)]="story.storyName">{{story.storyName}}</textarea></p>
+    <p><textarea [attr.disabled]="(myRole !==3)?null:''" [(ngModel)]="story.storyName">{{story.storyName}}</textarea></p>
     <hr>
-    <div class="row">
+    <div *ngIf="myRole !==3" class="row">
       <div class="col-6 text-left">
         <span *ngIf="laneIndex !== 0"><i (click)="moveLeft(laneIndex)" class="btn btn-outline-dark material-icons">&#xE5C4;</i> Previous Swimlane</span>
       </div>
@@ -27,13 +27,13 @@
     <div class="row">
       <label for="example-text-input" class="col-4 col-form-label">Burndown Points</label>
       <div class="col-8">
-        <input class="form-control" [(ngModel)]="story.points" type="number" value="{{story.points}}">
+        <input [attr.disabled]="(myRole !==3)?null:''" class="form-control" [(ngModel)]="story.points" type="number" value="{{story.points}}">
       </div>
     </div>
     <div class="row">
       <label for="example-text-input" class="col-4 col-form-label">Checklist name</label>
       <div class="col-8">
-        <input class="form-control" type="text" [(ngModel)]="story.checklistName" value="{{story.checklistName}}">
+        <input [attr.disabled]="(myRole !==3)?null:''" class="form-control" type="text" [(ngModel)]="story.checklistName" value="{{story.checklistName}}">
       </div>
     </div>
 
@@ -52,24 +52,29 @@
          
           
           <div *ngFor="let task of tasks; let i = index">
-            
+            <div *ngIf="myRole !==3;else spectator">
               <label class="py-2" style="font-size:120%">
                 <input type="checkbox" [(ngModel)]="task.taskActive" name="check">
-                <div [ngClass]="{strike: task.taskActive}" class="label-text" (click)="checkTask(i)">{{task.taskDescription}} </div>
+                <div [ngClass]="{strike: task.taskActive}" class="label-text" (click)="(myRole!==3)?checkTask(i):''">{{task.taskDescription}} </div>
               </label>
             
-              <div class="float-right align-top" (click)="deleteTask(i)">
-                  <i style="font-size:1.0em;" class="fa fa-remove"></i>
+              <div class="float-right align-top" (click)="(myRole!==3)?deleteTask(i):''">
+                  <i *ngIf="myRole !==3" style="font-size:1.0em;" class="fa fa-remove"></i>
               </div>
+            </div>
+            <ng-template #spectator>
+                <label class="py-2" style="font-size:120%">
+                  <div [ngClass]="{strike: task.taskActive}" class="label-text" (click)="(myRole!==3)?checkTask(i):''">{{task.taskDescription}} </div>
+                </label>
+              </ng-template>
           </div>
-       
 
 
-        <div class="rounded-circle m-4 fixed-bottom">
+        <div *ngIf="myRole !==3" class="rounded-circle m-4 fixed-bottom">
           <i class="fa fa-plus-circle text-primary" style="font-size:300%;" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse"></i>
         </div>
         <div class="collapse" id="collapse">
-          <div class="card p-3 m-2">
+          <div *ngIf="myRole !==3" class="card p-3 m-2">
 
             <!-- <input [(ngModel)]="descriptionField" type="text" placeholder="My new task"> -->
             <button class="btn btn-primary w-50 mx-auto my-4" (click)="createTask()" type="button" data-toggle="collapse" data-target="#collapse"
@@ -82,7 +87,7 @@
       </div>
     </div>
   </div>
-  <div class="modal-footer">
+  <div *ngIf="myRole !==3" class="modal-footer">
     <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
     <button type="button" class="btn btn-primary" (click)="update()">Save</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
@@ -113,7 +118,7 @@
       </div>
     </div>
   </div>
-  <div class="modal-footer">
+  <div *ngIf="myRole !==3" class="modal-footer">
     <ngb-alert *ngIf="alertMessage" type="danger" (close)="alertMessage = null">{{ alertMessage }}</ngb-alert>
     <button type="button" class="btn btn-primary" (click)="add()">Save</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>

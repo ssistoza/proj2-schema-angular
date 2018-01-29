@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Swimlane } from '../../models/swimlane.model';
 import {Router} from '@angular/router';
 import { BoardMemberComponent } from '../board-member/board-member.component';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-swimlanes',
@@ -22,11 +23,18 @@ export class SwimlanesComponent implements OnInit {
   public swimlaneStoriesLength: number [] = [];
   public points: String[] = [];
   public currentSlide: boolean[] = [];
+  public currentSlide2: boolean[] = [true];
+  public boardName: String;
+  public role: Number;
+  position: Number = 1;
+  public completedPoints = 0;
+  public totalPoints = 0;
 
   constructor(private modalService: NgbModal,
               private accountService: ScrumUserAccountService,
               private route: ActivatedRoute,
-              public router: Router) { }
+              public router: Router,
+              private sessionService: SessionService) { }
 
   newStory(event: Event, swimlaneId: number, storiesLength: number) {   // opens story modal
     event.stopPropagation();
@@ -34,14 +42,21 @@ export class SwimlanesComponent implements OnInit {
     modalRef.componentInstance.story = null;
     modalRef.componentInstance.swimlaneId = swimlaneId;
     modalRef.componentInstance.storiesLength = storiesLength;
-    modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1); }, 300));
+    modalRef.componentInstance.swimlaneStoriesLength = storiesLength;
+    modalRef.result.then(() => setTimeout(() => {
+      this.getUserInfo(this.sessionService.getScrumUserId());
+      this.currentSlide2 = this.currentSlide;
+    }, 300));
   }
 
   editSwimlane(swimlane) {
     const modalRef = this.modalService.open(SwimlaneComponent);
     modalRef.componentInstance.swimlane = swimlane;
     modalRef.componentInstance.properties = [this.getBoardId(), Object.keys(this.swimlanes).length];
-    modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1); }, 600));
+    modalRef.result.then(() => setTimeout(() => {
+      this.getUserInfo(this.sessionService.getScrumUserId());
+      this.currentSlide2 = this.currentSlide;
+    }, 600));
   }
 
   newSwimlane() {
@@ -49,7 +64,10 @@ export class SwimlanesComponent implements OnInit {
     const modalRef = this.modalService.open(SwimlaneComponent);
     console.log(this.getBoardId() + ' ' + Object.keys(this.swimlanes).length);
     modalRef.componentInstance.properties = [this.getBoardId(), Object.keys(this.swimlanes).length];
-    modalRef.result.then(() => setTimeout(() => { this.getUserInfo(1); }, 300));
+    modalRef.result.then(() => setTimeout(() => {
+      this.getUserInfo(this.sessionService.getScrumUserId());
+      this.currentSlide2 = this.currentSlide;
+    }, 300));
   }
 
   shiftSwimlaneRight(event: Event, order: number) {
@@ -62,7 +80,7 @@ export class SwimlanesComponent implements OnInit {
     this.accountService.reorderSwimlane(this.swimlanes[order]).subscribe(
       reorderService => this.swimlanes[order] = reorderService,
       error => console.log('Error: ', error), // log it on error...
-      () => this.getUserInfo(1)
+      () => this.getUserInfo(this.sessionService.getScrumUserId())
     );
   }
 
@@ -76,7 +94,7 @@ export class SwimlanesComponent implements OnInit {
     this.accountService.reorderSwimlane(this.swimlanes[order - 2]).subscribe(
       reorderService => this.swimlanes[order - 2] = reorderService,
       error => console.log('Error: ', error), // log it on error...
-      () => this.getUserInfo(1)
+      () => this.getUserInfo(this.sessionService.getScrumUserId())
     );
     // console.log(s);
   }
@@ -86,7 +104,7 @@ export class SwimlanesComponent implements OnInit {
     modalRef.componentInstance.boardId = this.getBoardId();
   }
 
-  carouselPrev() {
+  cPrev2() {
     let temp;
     temp = [];
     for (let i = 0; i < this.currentSlide.length; i++) {
@@ -94,28 +112,44 @@ export class SwimlanesComponent implements OnInit {
       temp[moveHere] = this.currentSlide[i];
     }
     this.currentSlide = temp;
-    console.log(this.currentSlide);
   }
-  carouselNext() {
+  cNext2() {
     let temp;
     temp = [];
+    let moveHere;
     for (let i = 0; i < this.currentSlide.length; i++) {
-      const moveHere = (i + (this.currentSlide.length + 1)) % this.currentSlide.length;
+      moveHere = (i + (this.currentSlide.length + 1)) % this.currentSlide.length;
       temp[moveHere] = this.currentSlide[i];
+      if ( temp[moveHere] === true) {
+        this.position = moveHere + 1;
+      }
     }
     this.currentSlide = temp;
-    console.log(this.currentSlide);
   }
 
   createRange() {   // made up function to create the bar sizes for the mobile view...
     this.points = [];
+    this.totalPoints = 0;
+    this.completedPoints = 0;
     for (let i = 0; i < Object.keys(this.swimlanes).length; i++) {
       let items = 0;
+      let points = 0;
       for (let j = 0; j < Object.keys(this.swimlanes[i].stories).length; j++) {
         items = items + (Number(this.swimlanes[i].stories[j].points) / 3 + 1);
+        points +=  Number(this.swimlanes[i].stories[j].points);
+        this.totalPoints += Number(this.swimlanes[i].stories[j].points);
+      }
+      if ( i === Object.keys(this.swimlanes).length - 1 ) {
+          this.completedPoints += points;
       }
       this.points.push(String(items));
     }
+    this.calculateBurnDownChart();
+  }
+
+  calculateBurnDownChart() {
+    console.log(this.totalPoints);
+    console.log(this.completedPoints);
   }
 
   setStyles(amount) {
@@ -138,13 +172,14 @@ export class SwimlanesComponent implements OnInit {
     this.swimlaneIds = [];
     for (let i = 0; i < Object.keys(this.scrumUser.associatedBoards).length; i++) {
       if (this.scrumUser.associatedBoards[i].sboard.bId === boardId) {
+        this.boardName = this.scrumUser.associatedBoards[i].sboard.bName;
         this.swimlanes = this.scrumUser.associatedBoards[i].sboard.swimlanes;
+        this.role = this.scrumUser.associatedBoards[i].memberRole.roleId;
         for (let j = 0; j < Object.keys(this.swimlanes).length; j++) {
           this.swimlaneIds.push(this.swimlanes[j].slId);
           this.swimlaneStoriesLength.push(this.swimlanes[j].stories.length);
           if (this.currentSlide.length !== Object.keys(this.swimlanes).length) {
-            console.log(this.currentSlide.length);
-            if (j === 0) {
+            if (j === 0 && this.currentSlide.length === 0 ) {
               this.currentSlide.push(true);
             } else {
               this.currentSlide.push(false);
@@ -153,7 +188,6 @@ export class SwimlanesComponent implements OnInit {
         }
       }
     }
-    console.log(this.currentSlide);
     this.createRange();
   }
 
@@ -163,6 +197,6 @@ export class SwimlanesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUserInfo(1);
+    this.getUserInfo(this.sessionService.getScrumUserId());
   }
 }

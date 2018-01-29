@@ -1,16 +1,16 @@
 <!-- Get Swimlanes from current board and each swimlane's Stories -->
 <section id="board-name">
-  <h4>Board Name<input class="btn btn-primary float-right" type="button" value="Members" (click)="addMemberModal()"></h4>    
+  <h4>{{boardName}}<span *ngIf="role !==3"><input class="btn btn-primary float-right" type="button" value="Members" (click)="addMemberModal()"></span></h4>    
 </section>
 
 <section id="mobile-swimlanes">
     <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
         <ol class="carousel-indicators">
           <!-- Iterate through swimlanes -->
-          <li *ngFor="let swimlane of swimlanes; let i = index" data-target="#myCarousel" [ngStyle]="{'height': points[i]+'px'}" [attr.data-slide-to]="i" [class]="i==0 ? 'active' : ''">{{points[i]}} s </li>
+          <li *ngFor="let swimlane of swimlanes; let i = index" data-target="#myCarousel" [ngStyle]="{'height': points[i]+'px'}" [attr.data-slide-to]="i" [class]="currentSlide2[i]? 'active' : ''">{{points[i]}} s </li>
         </ol>
         <div class="carousel-inner" >
-            <div *ngFor="let swimlane of swimlanes; let i = index" [class]="i==0 ? 'carousel-item active' : 'carousel-item'">
+            <div *ngFor="let swimlane of swimlanes; let i = index" [class]="currentSlide2[i]? 'carousel-item active' : 'carousel-item'">
               <div class="container" >
                 <h1>{{(swimlane.slName.length>16)? (swimlane.slName | slice:0:14)+'..':(swimlane.slName)}}
                     <!-- <i *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneLeft($event,swimlane.slOrder)">&#xE5C4;</i>
@@ -18,17 +18,17 @@
                 </h1>
                 <div class="story-container">
                   <!-- Send stories from current iteration of swimlane -->
-                  <app-stories [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>
+                  <app-stories [myRole]="role" [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>
                 </div>
-                <div class="add-story"><input (click)="newStory($event,swimlane.slId,swimlane.stories.length)" class="btn btn-primary" type="button" value="Add a Story"></div>
+                <div *ngIf="role !==3" class="add-story"><input (click)="newStory($event,swimlane.slId,swimlane.stories.length)" class="btn btn-primary" type="button" value="Add a Story"></div>
               </div>
             </div>
         </div>
-        <a (click)="carouselPrev()" class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <a (click)="cPrev2($event)" class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a (click)="carouselNext()" class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <a (click)="cNext2()" class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
@@ -38,19 +38,21 @@
 <div class="row swimlanes">
 <!-- Iterate through swimlanes -->
 <div class="float-md-left lane" *ngFor="let swimlane of swimlanes; let i = index ;">
-  <div class="swimlane" (click)="editSwimlane(swimlane)">
-    <h6>{{(swimlane.slName.length>20)? (swimlane.slName | slice:0:18)+'..':(swimlane.slName)}} 
+  <div class="swimlane" (click)="( role!=3 ) ? editSwimlane(swimlane):''">
+    <h6>{{(swimlane.slName.length>20)? (swimlane.slName | slice:0:18)+'..':(swimlane.slName)}}
+      <div *ngIf="role !==3">
       <i *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneLeft($event,swimlane.slOrder)">&#xE5C4;</i>
       <i *ngIf="i < swimlanes.length-1" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneRight($event,swimlane.slOrder)">&#xE5C8;</i>      
+      </div>
     </h6>
       <div class="story-container">
         <!-- Send stories from current iteration of swimlane -->
-        <app-stories [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>        
+        <app-stories [myRole]="role" [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>        
       </div>
-    <div class="add-story"><input (click)="newStory($event,swimlane.slId,swimlane.stories.length)" class="btn btn-primary" type="button" value="Add a Story"></div>
+    <div *ngIf="role !==3" class="add-story"><input (click)="newStory($event,swimlane.slId,swimlane.stories.length)" class="btn btn-primary" type="button" value="Add a Story"></div>
   </div>
 </div>
-<div class="float-md-left lane">
+<div *ngIf="role !==3" class="float-md-left lane">
     <div class="create swimlane" (click)="newSwimlane()" >
       <h6>Create new swimlane...</h6>
     </div>
