@@ -30,7 +30,8 @@ export class RegisterComponent implements OnInit {
                 this.router.navigate(['/login']);
             },
             error => {
-                this.alertService.error(error);
+                console.log(error);
+                this.alertService.error('Registration Invalid');
                 this.loading = false;
             });
   }

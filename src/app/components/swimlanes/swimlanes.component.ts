@@ -247,4 +247,8 @@ export class SwimlanesComponent implements OnInit {
   ngOnInit() {
     this.getUserInfo(this.sessionService.getScrumUserId());
   }
+
+  viewBurndown() {
+    const modalRef = this.modalService.open(BurndownComponent);
+  }
 }
