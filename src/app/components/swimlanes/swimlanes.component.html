@@ -1,10 +1,15 @@
 <!-- Get Swimlanes from current board and each swimlane's Stories -->
 <section id="board-name">
-  <h4>{{boardName}}
-    <span *ngIf="role !==3" class="float-right">
-      <span *ngIf="burnTransactions.length !=0"><input class="btn btn-primary" type="button" value="Burndown Chart" (click)="viewChart($event)"></span>
-    <input class="btn btn-primary" type="button" value="Members" (click)="addMemberModal()">
-  </span></h4>    
+  <div class="row">
+    <div class="col-sm-12 col-md-6 "><h4>{{boardName}}</h4></div>
+    <div class="col-sm-12 col-md-6 text-right">
+      <span *ngIf="role !==3">
+        <span *ngIf="burnTransactions.length !=0"><input class="btn btn-primary" type="button" value="Burndown Chart" (click)="viewChart($event)"></span>
+        <span *ngIf="burnTransactions.length ==0 && totalPoints >= 50 && swimlanes.length > 1"><input class="btn btn-primary" type="button" value="Create Burndown Chart" (click)="createBurnDownChart($event)"></span>
+        <input class="btn btn-primary" type="button" value="Members" (click)="addMemberModal()">
+      </span>
+    </div>
+  </div>   
 </section>
 
 <section id="mobile-swimlanes">

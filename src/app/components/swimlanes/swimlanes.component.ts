@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
 import { BoardMemberComponent } from '../board-member/board-member.component';
 import { SessionService } from '../../services/session.service';
 import { BurndownComponent } from '../burndown/burndown.component';
+import { Burndown } from '../../models/burndown.model';
+import { BurndownService } from '../../services/burndown.service';
 
 @Component({
   selector: 'app-swimlanes',
@@ -21,7 +23,7 @@ export class SwimlanesComponent implements OnInit {
   public scrumUser: ScrumUser;
   public swimlanes: Swimlane[];
   public swimlaneIds: number[] = [];
-  public burnTransactions: String[] = [];
+  public burnTransactions: Burndown[] = [];
   public swimlaneStoriesLength: number [] = [];
   public points: String[] = [];
   public currentSlide: boolean[] = [];
@@ -36,13 +38,23 @@ export class SwimlanesComponent implements OnInit {
               private accountService: ScrumUserAccountService,
               private route: ActivatedRoute,
               public router: Router,
-              private sessionService: SessionService) { }
+              private sessionService: SessionService,
+              private burndownService: BurndownService) { }
 
     viewChart(event: Event) {
       event.stopPropagation();
       const modalRef = this.modalService.open(BurndownComponent);
       modalRef.componentInstance.remainingPoints = Math.abs(this.totalPoints - this.completedPoints);
       modalRef.componentInstance.burnTransactions = this.burnTransactions;
+    }
+    createBurnDownChart() {
+      console.log(this.totalPoints);
+      let newBurnPoints = new Burndown(null, null, this.getBoardId(), this.totalPoints);
+            this.burndownService.insertBurndownPoint(newBurnPoints).subscribe(
+                (service) => newBurnPoints = service,
+                error => console.log('Error: ', error),
+                () => this.getUserInfo(this.sessionService.getScrumUserId())
+            );
     }
 
   newStory(event: Event, swimlaneId: number, storiesLength: number) {   // opens story modal
@@ -142,6 +154,7 @@ export class SwimlanesComponent implements OnInit {
     this.points = [];
     this.totalPoints = 0;
     this.completedPoints = 0;
+    this.remainingPoints = 0;
     for (let i = 0; i < Object.keys(this.swimlanes).length; i++) {
       let items = 0;
       let points = 0;
@@ -155,11 +168,34 @@ export class SwimlanesComponent implements OnInit {
       }
       this.points.push(String(items));
     }
-    this.calculateBurnDownChart();
+    if (this.swimlanes.length > 1 && this.burnTransactions.length > 0) {
+      this.calculateBurnDownChart();
+    }
   }
 
   calculateBurnDownChart() {
     this.remainingPoints = Math.abs(this.totalPoints - this.completedPoints);
+    const today = new Date(Date.now());
+    const dateStr = today.toDateString().substr(4, 7);
+    const lastBurnDate = new Date(this.burnTransactions[(this.burnTransactions.length - 1)].burnDate);
+    const lastBd = lastBurnDate.toDateString().substr(4, 7);
+    if (dateStr === lastBd) {
+      let newBurnPoints = new Burndown(this.burnTransactions[(this.burnTransactions.length - 1)].burnId,
+                                      null, this.getBoardId(), (this.remainingPoints));
+      this.burndownService.updateBurndownPoint(newBurnPoints).subscribe(
+          (service) => newBurnPoints = service,
+          (error) => console.log(),
+          () => this.burnTransactions[(this.burnTransactions.length - 1)] = newBurnPoints
+      );
+    } else {
+      let newBurnPoints = new Burndown(null, null, this.getBoardId(), (this.remainingPoints));
+      this.burndownService.insertBurndownPoint(newBurnPoints).subscribe(
+          (service) => newBurnPoints = service,
+          (error) => console.log(),
+          () => this.burnTransactions.push(newBurnPoints)
+      );
+    }
+
   }
 
   setStyles(amount) {
@@ -180,6 +216,7 @@ export class SwimlanesComponent implements OnInit {
   getCurrentSwimlane (boardId: number) {
     this.swimlaneStoriesLength = [];
     this.swimlaneIds = [];
+    this.burnTransactions = [];
     for (let i = 0; i < Object.keys(this.scrumUser.associatedBoards).length; i++) {
       if (this.scrumUser.associatedBoards[i].sboard.bId === boardId) {
         this.boardName = this.scrumUser.associatedBoards[i].sboard.bName;

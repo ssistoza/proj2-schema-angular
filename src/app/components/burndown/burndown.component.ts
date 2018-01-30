@@ -57,6 +57,8 @@ export class BurndownComponent implements OnInit {
         let str = nextDate.toDateString();
         this.data.labels.push(str.substr(4, 7));
         this.data.datasets[0].data.push(this.burnTransactions[0].burnedPoint);
+        
+        if (lblmax < 7) {lblmax = 7; }
 
         let numElements = this.burnTransactions.length;
         for (let i = 1, j = 1 ; i < lblmax; i++) {

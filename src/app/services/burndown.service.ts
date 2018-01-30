@@ -16,7 +16,6 @@ export class BurndownService {
   constructor(private httpPost: HttpClient) { }
 
   updateBurndownPoint(BurndownPoint: Burndown): Observable<Burndown> {
-    console.log(BurndownPoint.burnId);
     return this.httpPost.post<Burndown>(environment.burndown.update(), JSON.stringify(BurndownPoint), httpOptions);
   }
   insertBurndownPoint(BurndownPoint: Burndown): Observable<Burndown> {

@@ -262,7 +262,7 @@ export class StoryComponent implements OnInit {
           } else {
             const newBurnPoints = new Burndown(null, null, this.boardId, (this.remaining - this.story.points));
             this.burndownService.insertBurndownPoint(newBurnPoints).subscribe(
-                () => console.log('Added to DB')
+
             );
           }
         }
