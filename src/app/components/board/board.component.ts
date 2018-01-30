@@ -18,7 +18,7 @@ import { BoardMemberService } from '../../services/board-member.service';
 export class BoardComponent {
   
   public scrumUser: ScrumUser;
-  public sboard: Board = new Board(null, null, null, null);
+  public sboard: Board = new Board(null, null, null, null, null);
   
   
   @Input()board;

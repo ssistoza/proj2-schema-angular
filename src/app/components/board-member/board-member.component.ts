@@ -68,7 +68,7 @@ export class BoardMemberComponent implements OnInit {
     }
     if (submit) {
       let addToBoard: Board;
-      addToBoard = new Board(this.boardId, null , null, null);
+      addToBoard = new Board(this.boardId, null , null, null, null);
       let userRole: Role;
       userRole = new Role(null, null);
       if (role === '2') {

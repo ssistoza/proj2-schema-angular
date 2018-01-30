@@ -21,6 +21,7 @@ export class SwimlanesComponent implements OnInit {
   public scrumUser: ScrumUser;
   public swimlanes: Swimlane[];
   public swimlaneIds: number[] = [];
+  public burnTransactions: String[] = [];
   public swimlaneStoriesLength: number [] = [];
   public points: String[] = [];
   public currentSlide: boolean[] = [];
@@ -41,6 +42,7 @@ export class SwimlanesComponent implements OnInit {
       event.stopPropagation();
       const modalRef = this.modalService.open(BurndownComponent);
       modalRef.componentInstance.remainingPoints = Math.abs(this.totalPoints - this.completedPoints);
+      modalRef.componentInstance.burnTransactions = this.burnTransactions;
     }
 
   newStory(event: Event, swimlaneId: number, storiesLength: number) {   // opens story modal
@@ -181,6 +183,7 @@ export class SwimlanesComponent implements OnInit {
       if (this.scrumUser.associatedBoards[i].sboard.bId === boardId) {
         this.boardName = this.scrumUser.associatedBoards[i].sboard.bName;
         this.swimlanes = this.scrumUser.associatedBoards[i].sboard.swimlanes;
+        this.burnTransactions = this.scrumUser.associatedBoards[i].sboard.burnTransactions;
         this.role = this.scrumUser.associatedBoards[i].memberRole.roleId;
         for (let j = 0; j < Object.keys(this.swimlanes).length; j++) {
           this.swimlaneIds.push(this.swimlanes[j].slId);

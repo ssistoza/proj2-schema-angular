@@ -11,16 +11,17 @@ export class BurndownComponent implements OnInit {
 
   @ViewChild('chart') chart: UIChart;
   @Input() remainingPoints;
+  @Input() burnTransactions;
   data: any;
   options: any;
 
   constructor(public activeModal: NgbActiveModal) {
         this.data = {
-            labels: ['1/21', '1/22', '1/23', '1/24', '1/25', '1/26'],
+            labels: [],
             datasets: [
                 {
                     label: 'Chart',
-                    data: [120, 111, null, 98, 48],
+                    data: [],
                     fill: true,
                     borderColor: 'red',
                     backgroundColor: '#f97d16',
@@ -35,7 +36,7 @@ export class BurndownComponent implements OnInit {
         this.options = {
             title: {
                 display: true,
-                text: 'Burndown for week ' + '1/21/2018' + ' - ' + '1/27/2018',
+                text: 'Burndown',
                 fontSize: 16
             },
             legend: {
@@ -44,12 +45,47 @@ export class BurndownComponent implements OnInit {
         };
     }
 
-  ngOnInit() {
+    populateBurndown() {
 
+        let nextDate = new Date(this.burnTransactions[0].burnDate);
+        let today = new Date(Date.now());
+        let diference = today.getTime() - nextDate.getTime();
+        let oneDay = (1000 * 60 * 60 * 24);
+
+        let lblmax = Math.floor( diference / oneDay) + 2;
+
+        let str = nextDate.toDateString();
+        this.data.labels.push(str.substr(4, 7));
+        this.data.datasets[0].data.push(this.burnTransactions[0].burnedPoint);
+
+        let numElements = this.burnTransactions.length;
+        for (let i = 1, j = 1 ; i < lblmax; i++) {
+            nextDate = new Date(nextDate.getTime() + (1000 * 60 * 60 * 24));
+            str = nextDate.toDateString();
+            if (j < numElements) {
+                let d = new Date(this.burnTransactions[j].burnDate);
+                if (str == d.toDateString()) {
+                    this.data.datasets[0].data.push(this.burnTransactions[j].burnedPoint);
+                    j++;
+                }
+            } else {
+                this.data.datasets[0].data.push(null);
+            }
+            this.data.labels.push(str.substr(4, 7));
+        }
+        console.log(this.data.datasets[0].data);
+
+    }
+
+  ngOnInit() {
+    console.log(this.burnTransactions);
     this.chart.data = this.data;
     this.chart.options = this.options;
+    this.populateBurndown();
     this.chart.data.datasets[0].data.push(this.remainingPoints);
-    this.chart.data.labels.push('1/29');
+    this.chart.data.labels.push('');
+    this.chart.data.labels.push('');
+    console.log(this.chart.data.datasets[0].data);
     this.chart.refresh();
   }
 
