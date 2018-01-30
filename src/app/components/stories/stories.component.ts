@@ -5,6 +5,7 @@ import { Swimlane } from '../../models/swimlane.model';
 import { SwimlanesComponent } from '../swimlanes/swimlanes.component';
 import { ScrumUserAccountService } from '../../services/scrum-user-account.service';
 import { Story } from '../../models/story.model';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-stories',
@@ -21,8 +22,16 @@ export class StoriesComponent implements OnInit {
   @Input() swimlaneStoriesLength: number[];
   @Input() storiesLength: number;
   @Input() swimlaneIds: number;
+  @Input() myRole;
+  @Input() burndown;
+  @Input() remaining;
+  @Input() boardId;
 
-  constructor(private modalService: NgbModal, private parent: SwimlanesComponent, private accountService: ScrumUserAccountService) { }
+  constructor(private modalService: NgbModal,
+    private parent: SwimlanesComponent,
+    private accountService: ScrumUserAccountService,
+    private sessionService: SessionService
+  ) { }
 
   open(event: Event, story) {
     event.stopPropagation();
@@ -33,7 +42,15 @@ export class StoriesComponent implements OnInit {
     modalRef.componentInstance.swimlaneIds = this.swimlaneIds;
     modalRef.componentInstance.storiesLength = this.storiesLength;
     modalRef.componentInstance.swimlaneStoriesLength = this.swimlaneStoriesLength;
-    modalRef.result.then(() => setTimeout(() => { this.parent.getUserInfo(1); }, 600));
+    modalRef.componentInstance.myRole = this.myRole;
+    modalRef.componentInstance.burndown = this.burndown;
+    modalRef.componentInstance.remaining = this.remaining;
+    modalRef.componentInstance.boardId = this.boardId;
+    modalRef.result.then(() => setTimeout(() => {
+      this.parent.getUserInfo(this.sessionService.getScrumUserId());
+      this.parent.currentSlide2 = this.parent.currentSlide;
+    }, 600));
+    modalRef.result.catch();
   }
 
   shiftStoryUp(event: Event, order: number) {
@@ -41,13 +58,16 @@ export class StoriesComponent implements OnInit {
 
     let s = this.lane[order - 1].storyOrder = order - 1;
     this.accountService.reorderStory(this.lane[order - 1]).subscribe(
-      reorderService => this.lane[order - 1] = reorderService
-    );
-    s = this.lane[order - 2].storyOrder = order;
-    this.accountService.reorderStory(this.lane[order - 2]).subscribe(
-      reorderService => this.lane[order - 2] = reorderService,
+      reorderService => this.lane[order - 1] = reorderService,
       error => console.log('Error: ', error),
-      () => this.parent.getUserInfo(1)
+      () => {
+        s = this.lane[order - 2].storyOrder = order;
+        this.accountService.reorderStory(this.lane[order - 2]).subscribe(
+          reorderService => this.lane[order - 2] = reorderService,
+          error => console.log('Error: ', error),
+          () => this.parent.getUserInfo(this.sessionService.getScrumUserId())
+        );
+      }
     );
   }
 
@@ -55,13 +75,16 @@ export class StoriesComponent implements OnInit {
     event.stopPropagation();
     let s = this.lane[order - 1].storyOrder = order + 1;
     this.accountService.reorderStory(this.lane[order - 1]).subscribe(
-      reorderService => this.lane[order - 1] = reorderService
-    );
-    s = this.lane[order].storyOrder = order;
-    this.accountService.reorderStory(this.lane[order]).subscribe(
-      reorderService => this.lane[order] = reorderService,
+      reorderService => this.lane[order - 1] = reorderService,
       error => console.log('Error: ', error),
-      () => this.parent.getUserInfo(1)
+      () => {
+        s = this.lane[order].storyOrder = order;
+        this.accountService.reorderStory(this.lane[order]).subscribe(
+          reorderService => this.lane[order] = reorderService,
+          error => console.log('Error: ', error),
+          () => this.parent.getUserInfo(this.sessionService.getScrumUserId())
+        );
+      }
     );
   }
 

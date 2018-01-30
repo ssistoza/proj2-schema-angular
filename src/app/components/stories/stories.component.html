@@ -8,9 +8,9 @@
                 {{(story.storyName.length>80) ? (story.storyName | slice:0:80)+'..':(story.storyName)}}
                 <strong>index {{story.storyOrder}}</strong> 
             </div>
-            <div class="col-5 text-right">
-                <i *ngIf="i < lane.length-1" class="btn btn-outline-dark material-icons" (click)="shiftStoryDown($event,story.storyOrder)">&#xE5DB;</i>
+            <div *ngIf="myRole !==3" class="col-5 text-right">
                 <i *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftStoryUp($event,story.storyOrder)">&#xE5D8;</i>
+                <i *ngIf="i < lane.length-1" class="btn btn-outline-dark material-icons" (click)="shiftStoryDown($event,story.storyOrder)">&#xE5DB;</i>
             </div>
         </div>
     </div>

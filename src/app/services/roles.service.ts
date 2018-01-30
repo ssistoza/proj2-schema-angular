@@ -15,4 +15,3 @@ return this.httpGet.get<Role>(environment.roles.get(1));
 
   }
 }
- 

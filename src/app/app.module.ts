@@ -32,7 +32,8 @@ import { BoardMemberComponent } from './components/board-member/board-member.com
 import { TaskComponent } from './components/task/task.component';
 import { TaskService } from './services/task.service';
 import { BurndownComponent } from './components/burndown/burndown.component';
-
+import { ChartModule } from 'primeng/primeng';
+import { BurndownService } from './services/burndown.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { BurndownComponent } from './components/burndown/burndown.component';
     FormsModule,
     HttpModule,
     HttpClientModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ChartModule
   ],
   providers: [
     ScrumUserAccountService,
@@ -71,7 +73,8 @@ import { BurndownComponent } from './components/burndown/burndown.component';
     SessionService,
     RolesService,
     BoardMemberService,
-    TaskService
+    TaskService,
+    BurndownService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
