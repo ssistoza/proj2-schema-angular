@@ -23,6 +23,9 @@ export class StoriesComponent implements OnInit {
   @Input() storiesLength: number;
   @Input() swimlaneIds: number;
   @Input() myRole;
+  @Input() burndown;
+  @Input() remaining;
+  @Input() boardId;
 
   constructor(private modalService: NgbModal,
     private parent: SwimlanesComponent,
@@ -40,6 +43,9 @@ export class StoriesComponent implements OnInit {
     modalRef.componentInstance.storiesLength = this.storiesLength;
     modalRef.componentInstance.swimlaneStoriesLength = this.swimlaneStoriesLength;
     modalRef.componentInstance.myRole = this.myRole;
+    modalRef.componentInstance.burndown = this.burndown;
+    modalRef.componentInstance.remaining = this.remaining;
+    modalRef.componentInstance.boardId = this.boardId;
     modalRef.result.then(() => setTimeout(() => {
       this.parent.getUserInfo(this.sessionService.getScrumUserId());
       this.parent.currentSlide2 = this.parent.currentSlide;

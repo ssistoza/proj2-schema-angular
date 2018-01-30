@@ -21,7 +21,7 @@ export const environment = {
   },
 
   burndown: {
-    craete: () => `${context}/burndown/create`,
+    create: () => `${context}/burndown/create`,
     update: () => `${context}/burndown/update`,
   },
 

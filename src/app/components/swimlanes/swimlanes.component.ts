@@ -31,7 +31,7 @@ export class SwimlanesComponent implements OnInit {
   position: Number = 1;
   public completedPoints = 0;
   public totalPoints = 0;
-
+  public remainingPoints = 0;
   constructor(private modalService: NgbModal,
               private accountService: ScrumUserAccountService,
               private route: ActivatedRoute,
@@ -89,7 +89,9 @@ export class SwimlanesComponent implements OnInit {
     this.accountService.reorderSwimlane(this.swimlanes[order]).subscribe(
       reorderService => this.swimlanes[order] = reorderService,
       error => console.log('Error: ', error), // log it on error...
-      () => this.getUserInfo(this.sessionService.getScrumUserId())
+      () => {
+        this.getUserInfo(this.sessionService.getScrumUserId());
+      }
     );
   }
 
@@ -157,8 +159,7 @@ export class SwimlanesComponent implements OnInit {
   }
 
   calculateBurnDownChart() {
-    console.log(this.totalPoints);
-    console.log(this.completedPoints);
+    this.remainingPoints = Math.abs(this.totalPoints - this.completedPoints);
   }
 
   setStyles(amount) {

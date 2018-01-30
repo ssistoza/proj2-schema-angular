@@ -28,7 +28,6 @@ export class ScrumUserAccountService {
         .get(this.url(id))
         // must import Response datatype
         .map( (response: Response) => {
-          console.log(response);
           return <ScrumUser> response.json();
         });
   }
@@ -38,14 +37,12 @@ export class ScrumUserAccountService {
         .get(environment.user.all())
         // must import Response datatype
         .map( (response: Response) => {
-          console.log(response);
           return <ScrumUser[]> response.json();
         });
   }
 
     /** POST: add a new board to the DB */
     addBoard (board: Board): Observable<Board> {
-      console.log('Hello');
       return this.httpPost.post<Board>(environment.board.create(), JSON.stringify(board), httpOptions);
     }
 

@@ -34,6 +34,7 @@ import { TaskComponent } from './components/task/task.component';
 import { TaskService } from './services/task.service';
 import { BurndownComponent } from './components/burndown/burndown.component';
 import { ChartModule } from 'primeng/primeng';
+import { BurndownService } from './services/burndown.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ChartModule } from 'primeng/primeng';
     SessionService,
     RolesService,
     BoardMemberService,
-    TaskService
+    TaskService,
+    BurndownService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

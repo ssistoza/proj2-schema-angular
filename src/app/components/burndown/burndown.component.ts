@@ -62,30 +62,26 @@ export class BurndownComponent implements OnInit {
         for (let i = 1, j = 1 ; i < lblmax; i++) {
             nextDate = new Date(nextDate.getTime() + (1000 * 60 * 60 * 24));
             str = nextDate.toDateString();
+            let d = new Date();
             if (j < numElements) {
-                let d = new Date(this.burnTransactions[j].burnDate);
-                if (str == d.toDateString()) {
-                    this.data.datasets[0].data.push(this.burnTransactions[j].burnedPoint);
-                    j++;
-                }
+                d = new Date(this.burnTransactions[j].burnDate);
+            }
+            if (str === d.toDateString() && j < numElements) {
+                this.data.datasets[0].data.push(this.burnTransactions[j].burnedPoint);
+                j++;
             } else {
                 this.data.datasets[0].data.push(null);
             }
             this.data.labels.push(str.substr(4, 7));
         }
-        console.log(this.data.datasets[0].data);
-
     }
 
   ngOnInit() {
-    console.log(this.burnTransactions);
     this.chart.data = this.data;
     this.chart.options = this.options;
     this.populateBurndown();
-    this.chart.data.datasets[0].data.push(this.remainingPoints);
+    // this.chart.data.datasets[0].data.push(this.remainingPoints);
     this.chart.data.labels.push('');
-    this.chart.data.labels.push('');
-    console.log(this.chart.data.datasets[0].data);
     this.chart.refresh();
   }
 

@@ -1,6 +1,10 @@
 <!-- Get Swimlanes from current board and each swimlane's Stories -->
 <section id="board-name">
-  <h4>{{boardName}}<span *ngIf="role !==3"><input class="btn btn-primary float-right" type="button" value="Members" (click)="addMemberModal()"></span></h4>    
+  <h4>{{boardName}}
+    <span *ngIf="role !==3" class="float-right">
+      <span *ngIf="burnTransactions.length !=0"><input class="btn btn-primary" type="button" value="Burndown Chart" (click)="viewChart($event)"></span>
+    <input class="btn btn-primary" type="button" value="Members" (click)="addMemberModal()">
+  </span></h4>    
 </section>
 
 <section id="mobile-swimlanes">
@@ -18,7 +22,7 @@
                 </h1>
                 <div class="story-container">
                   <!-- Send stories from current iteration of swimlane -->
-                  <app-stories [myRole]="role" [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>
+                  <app-stories [boardId]="getBoardId()" [remaining]="remainingPoints" [burndown]="burnTransactions" [myRole]="role" [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>
                 </div>
                 <div *ngIf="role !==3" class="add-story"><input (click)="newStory($event,swimlane.slId,swimlane.stories.length)" class="btn btn-primary" type="button" value="Add a Story"></div>
               </div>
@@ -47,7 +51,7 @@
     </h6>
       <div class="story-container">
         <!-- Send stories from current iteration of swimlane -->
-        <app-stories [myRole]="role" [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>        
+        <app-stories [boardId]="getBoardId()" [remaining]="remainingPoints" [burndown]="burnTransactions" [myRole]="role" [storiesLength]="swimlane.stories.length" [lane]="swimlane.stories" [laneIndex]="i" [swimlaneIds]="swimlaneIds" [swimlaneStoriesLength]="swimlaneStoriesLength"></app-stories>        
       </div>
     <div *ngIf="role !==3" class="add-story"><input (click)="newStory($event,swimlane.slId,swimlane.stories.length)" class="btn btn-primary" type="button" value="Add a Story"></div>
   </div>
@@ -59,5 +63,3 @@
   </div>
 </div>
 </section>
-
-<button (click)="viewChart($event)">Click</button>

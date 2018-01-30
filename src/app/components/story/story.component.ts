@@ -7,6 +7,8 @@ import {Subject} from 'rxjs/Subject';
 import {debounceTime} from 'rxjs/operator/debounceTime';
 import {Router} from '@angular/router';
 import { Story } from '../../models/story.model';
+import { BurndownService } from '../../services/burndown.service';
+import { Burndown } from '../../models/burndown.model';
 
 @Component({
   selector: 'app-story',
@@ -23,7 +25,9 @@ export class StoryComponent implements OnInit {
   @Input() swimlaneStoriesLength = [];
   @Input() swimlaneIds;
   @Input() myRole;
-
+  @Input() burndown;
+  @Input() remaining;
+  @Input() boardId;
   public storyName: string;
   public checklistName: string;
   public points: number;
@@ -44,7 +48,9 @@ export class StoryComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private accountService: ScrumUserAccountService,
     public router: Router,
-    private taskService: TaskService) { }
+    private taskService: TaskService,
+    private burndownService: BurndownService
+  ) { }
 
   ngOnInit() {
 
@@ -210,7 +216,27 @@ export class StoryComponent implements OnInit {
     this.accountService.moveStory(this.story).subscribe(
       reorderService => this.story = reorderService,
       (error) => console.log('Error'),
-      () => this.adjustStoryOrders(oldOrder, laneIndex)
+      () => {
+        if ( this.swimlaneStoriesLength.length === laneIndex + 1 && this.burndown !== 0 ) {
+          const today = new Date(Date.now());
+          const dateStr = today.toDateString().substr(4, 7);
+          const lastBurnDate = new Date(this.burndown[(this.burndown.length - 1)].burnDate);
+          const lastBd = lastBurnDate.toDateString().substr(4, 7);
+          if (dateStr === lastBd) {
+            let newBurnPoints = new Burndown(this.burndown[(this.burndown.length - 1)].burnId,
+                                            null, this.boardId, (this.remaining + this.story.points));
+            this.burndownService.updateBurndownPoint(newBurnPoints).subscribe(
+                (service) => newBurnPoints = service
+            );
+          } else {
+            let newBurnPoints = new Burndown(null, null, this.boardId, (this.remaining + this.story.points));
+            this.burndownService.insertBurndownPoint(newBurnPoints).subscribe(
+                (service) => newBurnPoints = service
+            );
+          }
+        }
+        this.adjustStoryOrders(oldOrder, laneIndex);
+      }
     );
   }
 
@@ -221,7 +247,27 @@ export class StoryComponent implements OnInit {
     this.accountService.moveStory(this.story).subscribe(
       reorderService => this.story = reorderService,
       (error) => console.log('Error'),
-      () => this.adjustStoryOrders(oldOrder, laneIndex)
+      () => {
+        if ( this.swimlaneStoriesLength.length === laneIndex + 2 && this.burndown !== 0 ) {
+          const today = new Date(Date.now());
+          const dateStr = today.toDateString().substr(4, 7);
+          const lastBurnDate = new Date(this.burndown[(this.burndown.length - 1)].burnDate);
+          const lastBd = lastBurnDate.toDateString().substr(4, 7);
+          if (dateStr === lastBd) {
+            let newBurnPoints = new Burndown(this.burndown[(this.burndown.length - 1)].burnId,
+                                            null, this.boardId, (this.remaining - this.story.points));
+            this.burndownService.updateBurndownPoint(newBurnPoints).subscribe(
+                (service) => newBurnPoints = service
+            );
+          } else {
+            const newBurnPoints = new Burndown(null, null, this.boardId, (this.remaining - this.story.points));
+            this.burndownService.insertBurndownPoint(newBurnPoints).subscribe(
+                () => console.log('Added to DB')
+            );
+          }
+        }
+        this.adjustStoryOrders(oldOrder, laneIndex);
+      }
     );
   }
 
