@@ -83,7 +83,6 @@ export class SwimlanesComponent implements OnInit {
   newSwimlane() {
     this.router.navigated = false;
     const modalRef = this.modalService.open(SwimlaneComponent);
-    console.log(this.getBoardId() + ' ' + Object.keys(this.swimlanes).length);
     modalRef.componentInstance.properties = [this.getBoardId(), Object.keys(this.swimlanes).length];
     modalRef.result.then(() => setTimeout(() => {
       this.getUserInfo(this.sessionService.getScrumUserId());
@@ -159,7 +158,7 @@ export class SwimlanesComponent implements OnInit {
       let items = 0;
       let points = 0;
       for (let j = 0; j < Object.keys(this.swimlanes[i].stories).length; j++) {
-        items = items + (Number(this.swimlanes[i].stories[j].points) / 3 + 1);
+        items = items + (Number(this.swimlanes[i].stories[j].points) / 2 + 1);
         points +=  Number(this.swimlanes[i].stories[j].points);
         this.totalPoints += Number(this.swimlanes[i].stories[j].points);
       }
