@@ -19,9 +19,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "assets/css/material.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/material.min.js" ,"../node_modules/chart.js/dist/Chart.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

@@ -1,0 +1,5 @@
+.btn-secondary{
+    max-width: 40px!important;
+    min-width: 40px!important;
+    cursor: pointer;
+}
