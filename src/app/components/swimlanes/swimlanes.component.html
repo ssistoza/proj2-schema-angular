@@ -50,8 +50,8 @@
   <div class="swimlane" (click)="( role!=3 ) ? editSwimlane(swimlane):''">
     <h6>{{(swimlane.slName.length>20)? (swimlane.slName | slice:0:18)+'..':(swimlane.slName)}}
       <div *ngIf="role !==3">
-      <i *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneLeft($event,swimlane.slOrder)">&#xE5C4;</i>
-      <i *ngIf="i < swimlanes.length-1" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneRight($event,swimlane.slOrder)">&#xE5C8;</i>      
+      <div *ngIf="i !== 0" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneLeft($event,swimlane.slOrder)"><i class="fa fa-chevron-left"></i></div>
+      <div *ngIf="i < swimlanes.length-1" class="btn btn-outline-dark material-icons" (click)="shiftSwimlaneRight($event,swimlane.slOrder)"><i class="fa fa-chevron-right"></i></div>      
       </div>
     </h6>
       <div class="story-container">
