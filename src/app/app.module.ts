@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SwimlanesComponent } from './components/swimlanes/swimlanes.component';
@@ -28,9 +27,13 @@ import { RolesService } from './services/roles.service';
 import { BoardMember } from './models/boardMember.model';
 import { BoardMemberService } from './services/board-member.service';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
+import { BoardMemberComponent } from './components/board-member/board-member.component';
+
 import { TaskComponent } from './components/task/task.component';
 import { TaskService } from './services/task.service';
-
+import { BurndownComponent } from './components/burndown/burndown.component';
+import { ChartModule } from 'primeng/primeng';
+import { BurndownService } from './services/burndown.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,9 @@ import { TaskService } from './services/task.service';
     StoriesComponent,
     RegisterComponent,
     AlertComponent,
-    TaskComponent
+    BoardMemberComponent,
+    TaskComponent,
+    BurndownComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,8 @@ import { TaskService } from './services/task.service';
     FormsModule,
     HttpModule,
     HttpClientModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ChartModule
   ],
   providers: [
     ScrumUserAccountService,
@@ -67,13 +73,16 @@ import { TaskService } from './services/task.service';
     SessionService,
     RolesService,
     BoardMemberService,
-    TaskService
+    TaskService,
+    BurndownService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
     StoryComponent,
     BoardComponent,
-    SwimlaneComponent
+    SwimlaneComponent,
+    BoardMemberComponent,
+    BurndownComponent
   ],
   exports: []
 })

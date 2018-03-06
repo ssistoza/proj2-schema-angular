@@ -12,11 +12,17 @@ export const environment = {
   user: {
     create: () => `${context}/user/create`,
     get: (userid: number) => `${context}/user/${userid}`,
+    getByUser: () => `${context}/user/checkExists/`,
     all: () => `${context}/user/all`,
     update: () => `${context}/user/update`,
     delete: () => `${context}/user/delete`,
     login: () => `${context}/user/login`,
     exists: () => `${context}/user/checkExists`
+  },
+
+  burndown: {
+    create: () => `${context}/burndown/create`,
+    update: () => `${context}/burndown/update`,
   },
 
   board: {

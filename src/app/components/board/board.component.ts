@@ -16,56 +16,54 @@ import { BoardMemberService } from '../../services/board-member.service';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent {
-  
+
   public scrumUser: ScrumUser;
-  public sboard: Board = new Board(null, null, null, null);
-  
-  
+  public sboard: Board = new Board(null, null, null, null, null);
+
+
   @Input()board;
-  
-  
+  @Input()scrumUserBoardList;
+
+
   constructor(private boardService: BoardService,
     public activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private sessionService: SessionService,
     private rolesService: RolesService,
     private boardMemberService: BoardMemberService) { }
-    
-    
+
+
     addNewBoard() {
-      
+
       this.boardService.addBoard(this.sboard)
       .subscribe(
         board => this.sboard = board,
-        (error)=> console.log("Error creating board"),      
-        () => this.getAdminRole(this.sboard)        
+        (error) => console.log('Error creating board'),
+        () => this.getAdminRole(this.sboard)
       );
     }
-    getAdminRole(b:Board)  {
+
+    getAdminRole(b: Board)  {
       let role = new Role(null, null);
-        
+
       this.rolesService.getAdmin()
-      .subscribe( 
+      .subscribe(
         adminRole => role = adminRole,
-        (error) => console.log("Error creating board owner"),
-       () => console.log()
-          );      
+        (error) => console.log('Error creating board owner'),
+       () => this.createOwnerOfBoard(b, role)
+          );
     }
 
-    createOwnerOfBoard(b:Board, r:Role){
+    createOwnerOfBoard(b: Board, r: Role) {
       let userId = this.sessionService.getScrumUserId();
       let boardMember = new BoardMember(b, userId, r);
       this.boardMemberService.createBoardMember(boardMember)
-      .subscribe( owner => console.log(owner)
-      );
-    }      
-    
-    save(board) {
-      console.log(board);
-      
-      this.boardService.updateBoard(this.sboard)
-      .subscribe(sboard => this.sboard = sboard);
+      .subscribe( owner => boardMember = owner);
     }
-    
-  }
-  
+
+    updateBoard() {
+      this.boardService.updateBoard(this.board).subscribe(
+        board2 => this.sboard = board2
+      );
+        }
+}

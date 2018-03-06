@@ -29,12 +29,12 @@ export class HomeComponent implements OnInit {
   open(board, e: Event) {
     const modalRef = this.modalService.open(BoardComponent);
     e.stopPropagation();
-    modalRef.componentInstance.board = board;
+    modalRef.componentInstance.board = board.sboard;
   }
-  
-  openToAdd(): void {
-    const modalRef = this.modalService.open(BoardComponent);
 
+  openToAdd() {
+    const modalRef = this.modalService.open(BoardComponent);
+    modalRef.result.then(() => setTimeout(() => { this.getUserInfo(); }, 300));
   }
 
   getUserInfo() {
@@ -48,5 +48,4 @@ export class HomeComponent implements OnInit {
     this.navService.loggedIn();
   }
 
-  
 }

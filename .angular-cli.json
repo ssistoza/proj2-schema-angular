@@ -23,7 +23,7 @@
         "assets/css/material.min.css"
       ],
       "scripts": [
-        "assets/js/material.min.js"
+        "assets/js/material.min.js" ,"../node_modules/chart.js/dist/Chart.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
