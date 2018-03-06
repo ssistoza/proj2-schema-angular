@@ -16,10 +16,5 @@ export class BoardMemberService {
 
   createBoardMember (boardMember: BoardMember): Observable<BoardMember> {
     return this.httpPost.post<BoardMember>(environment.boardmember.create(), JSON.stringify(boardMember), httpOptions);
-  } 
-
-
-
-
-
+  }  
 }

@@ -28,14 +28,13 @@ export class LoginComponent implements OnInit {
     const model = new ScrumUser(null, username, password, null, null, null, null);
 
     this.newLoginService.loginPost(model).subscribe(
-      data => {
-        this.scrumUser = data;
+      one => {
+        this.scrumUser = one;
         sessionStorage.setItem('userProfile', JSON.stringify(this.scrumUser));
         this.router.navigate(['home']);
       },
       error => {
-        console.log(error);
-        this.alertService.error('Username or Password is Invalid');
+        this.alertService.error(error);
         this.loading = false;
       });
   }

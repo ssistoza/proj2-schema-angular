@@ -21,4 +21,9 @@ export class BoardService {
   addBoard (board: Board): Observable<Board> {
     return this.httpPost.post<Board>(environment.board.create(), JSON.stringify(board), httpOptions);
   }
+
+  // getBoard (board: Board): Observable<Board> {
+  //   return this.httpGet.get<Board>(this.getBoardUrl + board.bId, JSON.stringify(board), httpOptions);
+  // }
+
 }
