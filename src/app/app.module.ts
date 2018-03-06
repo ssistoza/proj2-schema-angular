@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SwimlanesComponent } from './components/swimlanes/swimlanes.component';
@@ -27,13 +28,9 @@ import { RolesService } from './services/roles.service';
 import { BoardMember } from './models/boardMember.model';
 import { BoardMemberService } from './services/board-member.service';
 import { SwimlaneComponent } from './components/swimlane/swimlane.component';
-import { BoardMemberComponent } from './components/board-member/board-member.component';
-
 import { TaskComponent } from './components/task/task.component';
 import { TaskService } from './services/task.service';
-import { BurndownComponent } from './components/burndown/burndown.component';
-import { ChartModule } from 'primeng/primeng';
-import { BurndownService } from './services/burndown.service';
+
 
 @NgModule({
   declarations: [
@@ -49,9 +46,7 @@ import { BurndownService } from './services/burndown.service';
     StoriesComponent,
     RegisterComponent,
     AlertComponent,
-    BoardMemberComponent,
-    TaskComponent,
-    BurndownComponent
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -59,8 +54,7 @@ import { BurndownService } from './services/burndown.service';
     FormsModule,
     HttpModule,
     HttpClientModule,
-    NgbModule.forRoot(),
-    ChartModule
+    NgbModule.forRoot()
   ],
   providers: [
     ScrumUserAccountService,
@@ -73,16 +67,13 @@ import { BurndownService } from './services/burndown.service';
     SessionService,
     RolesService,
     BoardMemberService,
-    TaskService,
-    BurndownService
+    TaskService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
     StoryComponent,
     BoardComponent,
-    SwimlaneComponent,
-    BoardMemberComponent,
-    BurndownComponent
+    SwimlaneComponent
   ],
   exports: []
 })

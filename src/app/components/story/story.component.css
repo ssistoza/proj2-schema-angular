@@ -60,9 +60,4 @@ input[type="checkbox"]:disabled + .label-text:before{
 	100%{transform: scale(1);}
 }
 
-.fa-remove{
- cursor: pointer;
-}
-.fa-remove:hover {
-	color:red;
-}
+
